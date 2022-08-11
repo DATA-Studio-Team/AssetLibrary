@@ -1,0 +1,15 @@
+body {
+    margin: 0;
+}
+
+.top {
+    background-color: rgb(72, 72, 72);
+    border-bottom: 5px rgb(96, 96, 96) solid;
+    position: fixed;
+    width: 100%;
+}
+
+.search-nav {
+    background-color: white;/*rgb(64, 64, 64);*/
+    min-height: 10000px;
+}
