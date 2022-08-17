@@ -5,11 +5,40 @@ body {
 .top {
     background-color: rgb(72, 72, 72);
     border-bottom: 5px rgb(96, 96, 96) solid;
-    position: fixed;
     width: 100%;
 }
 
-.search-nav {
-    background-color: white;/*rgb(64, 64, 64);*/
-    min-height: 10000px;
+.search-form {
+    background-color: rgb(56, 56, 56);
+    border-bottom: 5px rgb(96, 96, 96) solid;
+    min-height: 200px;
+    width: 100%;
+
+}
+
+.search-form-tags input {
+    display: none;
+}
+
+.search-form-tags label {
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: rgb(96, 96, 96);
+    transition: all 0.25s;
+}
+
+.search-form-tags input:checked + label {
+    background-color: rgb(176, 176, 176);
+    color: black;
+    box-shadow: 0 0 5px 0px rgb(56, 56, 56);
+}
+
+.search-form-submit {
+    padding: 10px 15px;
+    border-radius: 5px;
+    background-color: rgb(80, 80, 80);
+}
+
+.search-form-submit + input {
+    display: none;
 }
