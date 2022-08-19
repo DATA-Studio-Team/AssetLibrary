@@ -11,9 +11,7 @@ body {
 .search-form {
     background-color: rgb(56, 56, 56);
     border-bottom: 5px rgb(96, 96, 96) solid;
-    min-height: 200px;
     width: 100%;
-
 }
 
 .search-form-tags input {
@@ -31,6 +29,19 @@ body {
     background-color: rgb(176, 176, 176);
     color: black;
     box-shadow: 0 0 5px 0px rgb(56, 56, 56);
+}
+
+.search-form-text {
+    width: 50%;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(80, 80, 80);
+}
+
+.search-form-text:focus {
+    border: none;
+    outline: none;
 }
 
 .search-form-submit {
