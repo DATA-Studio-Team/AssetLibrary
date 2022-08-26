@@ -1,11 +1,17 @@
 body {
     margin: 0;
+    min-height: 100vh;
+    background-color: rgb(40, 40, 40) !important;  
 }
 
 .top {
     background-color: rgb(72, 72, 72);
     border-bottom: 5px rgb(96, 96, 96) solid;
     width: 100%;
+}
+
+.content {
+    min-height: 100%;
 }
 
 .search-form {
@@ -21,7 +27,7 @@ body {
 .search-form-tags label {
     padding: 5px 10px;
     border-radius: 5px;
-    background-color: rgb(96, 96, 96);
+    background-color: rgb(96, 96, 96);  
     transition: all 0.25s;
 }
 
@@ -52,4 +58,30 @@ body {
 
 .search-form-submit + input {
     display: none;
+}
+
+.search-result {
+
+}
+
+.asset-container {
+    width: 20%;
+    overflow: hidden;
+    margin: 20px;
+    border-radius: 20px;
+    
+}
+
+.asset-image {
+    box-shadow: inset 0px -30px 10px -20px rgb(56, 56, 56);
+}
+
+.asset-image img {
+    width: 100%;
+    position: relative;
+    z-index: -1;
+}
+
+.asset-info {
+    background-color: rgb(56, 56, 56);
 }
