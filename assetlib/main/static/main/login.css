@@ -1,0 +1,35 @@
+.login-div {
+    border: solid 4px #454545;
+    border-radius: 10px;
+
+}
+
+.form-control {
+    color: inherit;
+
+    background: none;
+    border: solid 2px #454545;
+    border-radius: 15px;
+}
+
+.form-control:focus {
+    color: inherit;
+
+    background: none;
+    border-color: #70737C;
+    box-shadow: none;
+}
+
+.form-submit {
+    color: #EE7700;
+    background: none;
+    border: solid 2px #EE7700;
+    border-radius: 1000px;
+    padding: 10px 30px;
+
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
+}
+
+.form-submit:hover {
+    background-color: #EE7700;
+}
