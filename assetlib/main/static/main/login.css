@@ -21,8 +21,8 @@
 }
 
 .form-submit {
-    color: #EE7700;
-    background: none;
+    color: #333333;
+    background-color: #EE7700;
     border: solid 2px #EE7700;
     border-radius: 1000px;
     padding: 10px 30px;
@@ -31,5 +31,6 @@
 }
 
 .form-submit:hover {
-    background-color: #EE7700;
+    background-color: transparent;
+    color: #EE7700
 }
