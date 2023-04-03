@@ -9,6 +9,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Lexend&display=swap" rel="stylesheet">
 
         {% load static %}
+        <link href="{% static 'main/common.css' %}" rel="stylesheet">
         <link href="{% static 'main/index.css' %}" rel="stylesheet">
 
         <title>Asset Library</title>
@@ -20,9 +21,8 @@
                 <h3 class="my-3 mx-5">Asset Library</h3>
 
                 <div class="navigation fs-6 d-flex align-items-center">
-                    <div>LIBRARY</div>
-                    <div>UPLOAD</div>
-                    <div>ABOUT</div>
+                    <a href="{% url 'library' %}" class="active">LIBRARY</a>
+                    <a href="{% url 'upload' %}">UPLOAD</a>
                 </div>
             </div>
         </div>

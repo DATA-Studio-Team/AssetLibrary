@@ -14,7 +14,7 @@ def login_view(request: HttpRequest):
             if user is not None:
                 login(request, user)
 
-                return redirect("/index")
+                return redirect("/library")
             
         return render(request, "main/login.html", { 'form': form, 'error_during_login': True })
                 
@@ -24,6 +24,10 @@ def login_view(request: HttpRequest):
 
     
 
-def index_view(request: HttpRequest):
+def library_view(request: HttpRequest):
 
     return render(request, "main/index.html")
+
+def upload_view(request: HttpRequest):
+
+    return render(request, "main/upload.html")
