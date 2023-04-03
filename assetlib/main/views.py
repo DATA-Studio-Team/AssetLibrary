@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpRequest
 from .forms import *
+from .models import *
 # Create your views here.
 
 def login_view(request: HttpRequest):
@@ -31,7 +32,17 @@ def logout_view(request: HttpRequest):
 
 def library_view(request: HttpRequest):
 
-    return render(request, "main/index.html")
+    if not request.user.is_authenticated:
+        return redirect("login")
+
+    filters = dict()
+
+    for categories in CardTagsCategoriesModel.objects.all():
+        filters[categories.category_name] = list(map(lambda el: el.tag_name, CardTagsModel.objects.filter(category_id=categories)))
+
+    print(filters)
+
+    return render(request, "main/index.html", { 'filters': filters })
 
 def upload_view(request: HttpRequest):
 

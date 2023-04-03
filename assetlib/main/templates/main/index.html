@@ -35,68 +35,25 @@
                     <input type="submit" class="submit-search m-2 w-25" value="Search">
                 </div>
 
-
-                <div class="search-type d-flex flex-nowrap" id="x-sroll">
-                    <div>
-                        <img src="img/categories/all.svg">
-                        <p>all</p>
-                    </div>
-                    <div>
-                        <img src="img/categories/furniture.svg">
-                        <p>furniture</p>
-                    </div>
-                    <div>
-                        <img src="img/categories/electro.svg">
-                        <p>electronic</p>
-                    </div>
-                    <div>
-                        <img src="img/categories/construction.svg">
-                        <p>construction</p>
-                    </div>
-                    <div>
-                        <img src="img/categories/light.svg">
-                        <p>light</p>
-                    </div>
-                    <div>
-                        <img src="img/categories/vehicle.svg">
-                        <p>vehicle</p>
-                    </div>
-                    <div>
-                        <img src="img/categories/vegetation.svg">
-                        <p>vegetation</p>
-                    </div>
-                    <div>
-                        <img src="img/categories/furniture.svg">
-                        <p>furniture</p>
-                    </div>
-                    <div>
-                        <img src="img/categories/electro.svg">
-                        <p>electronic</p>
-                    </div>
-                    <div>
-                        <img src="img/categories/construction.svg">
-                        <p>construction</p>
-                    </div>
-                    <div>
-                        <img src="img/categories/light.svg">
-                        <p>light</p>
-                    </div>
-                    <div>
-                        <img src="img/categories/vehicle.svg">
-                        <p>vehicle</p>
-                    </div>
-                    <div>
-                        <img src="img/categories/vegetation.svg">
-                        <p>vegetation</p>
-                    </div>
-                </div>
-
                 <div class="search-bottom d-flex my-3">
                     <div class="search-filters mx-2">
                         <h6>FILTERS</h6>
 
-                        <hr>
                         
+                        
+                        {% for category in filters %}
+                            <hr>
+
+                            <ul>
+                                <li>{{ category }}</li>
+
+                                <hr>
+
+                                {% for tag in tags %}
+                                    <li><input type="checkbox" id="{{category}}-{{tags}}"> <label for="zone-personnel-zone">{{tags}}</label></li>
+                                {% endfor %}
+                            </ul>
+                        {% endfor%}
                         <ul>
                             <li>Zone</li>
                             <hr>
