@@ -25,10 +25,7 @@
 
     color: #BBBBBB;
 
-    background-image: url("img/util/magnifier.svg");
-    background-repeat: no-repeat;
-    background-position-x: 30px;
-    background-position-y: center;
+    background: no-repeat 30px center url("/static/main/util/magnifier.svg");
 }
 
 .text-input:focus {
@@ -156,10 +153,7 @@
     flex-shrink: 0;
     flex-grow: 0;
     
-    background-image: url("img/util/checkmark.svg");
-    background-repeat: no-repeat;
-    background-position-x: center;
-    background-position-y: 400%;
+    background: no-repeat center 400% url("/static/main/util/checkmark.svg");
 
     transition: all ease-in-out 0.15s;
 }
@@ -271,10 +265,8 @@
 
     border-radius: 10px;
 
-    background-image: url("img/util/eye_orange.svg"), url("img/util/eye_grey.svg");
-    background-repeat: no-repeat, no-repeat;
-    background-position-x: center, center;
-    background-position-y: center, 150%;
+    background: no-repeat center center url("/static/main/util/eye_orange.svg"), 
+                no-repeat center 150% url("/static/main/util/eye_grey.svg");
 
     transition: all ease-in-out 0.15s;
 }
