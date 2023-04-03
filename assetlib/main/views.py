@@ -5,7 +5,17 @@ from .forms import *
 from .models import *
 # Create your views here.
 
+def enter_view(request: HttpRequest):
+
+    if request.user.is_authenticated:
+        return redirect("library")
+    
+    return redirect("login")
+
 def login_view(request: HttpRequest):
+
+    if request.user.is_authenticated:
+        return redirect("library")
 
     if request.method == "POST":
         form = LoginForm(request.POST)
@@ -15,7 +25,7 @@ def login_view(request: HttpRequest):
             if user is not None:
                 login(request, user)
 
-                return redirect("/library")
+                return redirect("library")
             
         return render(request, "main/login.html", { 'form': form, 'error_during_login': True })
                 

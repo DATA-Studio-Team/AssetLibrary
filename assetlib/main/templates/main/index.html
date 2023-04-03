@@ -39,9 +39,7 @@
                     <div class="search-filters mx-2">
                         <h6>FILTERS</h6>
 
-                        
-                        
-                        {% for category in filters %}
+                        {% for category, tags in filters.items %}
                             <hr>
 
                             <ul>
@@ -50,35 +48,11 @@
                                 <hr>
 
                                 {% for tag in tags %}
-                                    <li><input type="checkbox" id="{{category}}-{{tags}}"> <label for="zone-personnel-zone">{{tags}}</label></li>
+                                    <li><input type="checkbox" id="{{category}}-{{tags}}"> <label for="zone-personnel-zone">{{tag}}</label></li>
                                 {% endfor %}
                             </ul>
                         {% endfor%}
-                        <ul>
-                            <li>Zone</li>
-                            <hr>
-                            <li><input type="checkbox" id="zone-personnel-zone"> <label for="zone-personnel-zone">Personnel Zone</label></li>
-                            <li><input type="checkbox" id="zone-medical-and-research-zone"> <label for="zone-medical-and-research-zone">Medical and Research Zone</label></li>
-                            <li><input type="checkbox" id="zone-entrance-hub"> <label for="zone-entrance-hub">Entrance Hub</label></li>
-                            <li><input type="checkbox" id="zone-power-substation-zone"> <label for="zone-power-substation-zone">Power Substation Zone</label></li>
-                            <li><input type="checkbox" id="zone-containment-bay"> <label for="zone-containment-bay">Containment Bay</label></li>
-                            <li><input type="checkbox" id="zone-logistics-dep-lower"> <label for="zone-logistics-dep-lower">Logistics Dep. - Lower Bay</label></li>
-                            <li><input type="checkbox" id="zone-surface-location"> <label for="zone-surface-location">Surface Location</label></li>
-                        </ul>
-
-                        <hr>
-
-                        <ul>
-                            <li>Material</li>
-                            <hr>
-                            <li><input type="checkbox" id="material-wood"> <label for="material-wood">Wood</label></li>
-                            <li><input type="checkbox" id="material-plastic"> <label for="material-plastic">Plastic</label></li>
-                            <li><input type="checkbox" id="material-concrete"> <label for="material-concrete">Concrete</label></li>
-                            <li><input type="checkbox" id="material-metal"> <label for="material-metal">Metal</label></li>
-                            <li><input type="checkbox" id="material-paper"> <label for="material-paper">Paper</label></li>
-                            <li><input type="checkbox" id="material-cardboard"> <label for="material-cardboard">Cardboard</label></li>
-                        </ul>
-
+                        
                     </div>
 
                     <div class="search-result d-flex flex-row flex-wrap justify-content-evenly align-items-start ">
