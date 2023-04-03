@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpRequest
 from .forms import *
 # Create your views here.
@@ -22,7 +22,12 @@ def login_view(request: HttpRequest):
 
         return render(request, "main/login.html", { 'form': LoginForm()})
 
-    
+def logout_view(request: HttpRequest):
+
+    logout(request)
+
+    return redirect("login")
+
 
 def library_view(request: HttpRequest):
 
@@ -31,3 +36,5 @@ def library_view(request: HttpRequest):
 def upload_view(request: HttpRequest):
 
     return render(request, "main/upload.html")
+
+
