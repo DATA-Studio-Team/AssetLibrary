@@ -47,12 +47,12 @@
 
                                 <hr>
 
-                                {% for tag in tags %}
-                                    <li><input type="checkbox" id="{{category}}-{{tags}}"> <label for="zone-personnel-zone">{{tag}}</label></li>
+                                {% for name, id in tags %}
+                                    <li><input type="checkbox" id="{{id}}"> <label for="{{id}}">{{name}}</label></li>
                                 {% endfor %}
                             </ul>
                         {% endfor%}
-                        
+
                     </div>
 
                     <div class="search-result d-flex flex-row flex-wrap justify-content-evenly align-items-start ">

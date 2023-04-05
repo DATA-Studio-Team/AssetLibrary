@@ -48,7 +48,7 @@ def library_view(request: HttpRequest):
     filters = dict()
 
     for categories in CardTagsCategoriesModel.objects.all():
-        filters[categories.category_name] = list(map(lambda el: el.tag_name, CardTagsModel.objects.filter(category_id=categories)))
+        filters[categories.category_name] = list(map(lambda el: (el.tag_name, "{}-{}".format(el.tag_name.lower().replace(' ', '-'), el.id)), CardTagsModel.objects.filter(category_id=categories)))
 
     print(filters)
 
