@@ -41,3 +41,9 @@ a {
 .adjusted-content {
     width: 80%;
 }
+
+.content {
+    overflow: auto;
+    min-height: 100vh;
+
+}
