@@ -47,3 +47,36 @@ a {
     min-height: 100vh;
 
 }
+
+.form-control {
+    color: inherit;
+
+    background-color: #272727;
+    box-shadow: 0 0 15px 2px #1d1d1d inset;
+    border: solid 2px #454545;
+    border-radius: 15px;
+}
+
+.form-control:focus {
+    color: inherit;
+
+    background: none;
+    box-shadow: none;
+    border-color: #70737C;
+    
+}   
+
+.form-submit {
+    color: #333333;
+    background-color: #EE7700;
+    border: solid 2px #EE7700;
+    border-radius: 1000px;
+    padding: 10px 30px;
+
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
+}
+
+.form-submit:hover {
+    background-color: transparent;
+    color: #EE7700
+}

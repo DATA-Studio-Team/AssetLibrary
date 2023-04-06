@@ -28,9 +28,20 @@
             </div>
         </div>
 
-        <div class="content">
-            <form method="post">
+        <div class="content adjusted-content mx-auto">
+            <form class="d-flex flex-column gap-4 mt-4" method="post">
+                <div class="w-50">
+                    <label class="form-label" for="name">Model name:</label>
+                    <input class="form-control" id="name" name="name" minlength="2" type="text" placeholder="Enter model name..">
+                </div>
+                
+                <div>
+                    <label class="form-label" for="description">Model description:</label>
+                    <textarea class="form-control" id="description" name="description" type="text" placeholder="Enter model description.."></textarea>
+                </div>
 
+
+                <input class="form-submit w-25" type="submit" value="Upload">
             </form>
         </div>
     </body>
