@@ -48,14 +48,14 @@
                     <div class="w-50 d-flex flex-column gap-4 justify-content-center">
                         <div>
                             <label class="form-label">Preview:</label>
-                            <div class="model-frame">
-                                <model-viewer class="w-100" id="preview" src="{% static 'main/test_model.glb' %}" camera-controls interaction-prompt="none" auto-rotate auto-rotate-delay="3000" rotation-per-second="25deg"></model-viewer>
+                            <div class="div-field">
+                                <model-viewer class="w-100" id="preview" camera-controls interaction-prompt="none" auto-rotate auto-rotate-delay="3000" rotation-per-second="25deg"></model-viewer>
                             </div>
                         </div>
 
                         <div>
                             <label for="previewModel" class="form-label">Preview model:</label>
-                            <input class="form-control" type="file" id="previewModel" onchange="previewModelSet(this)" accept=".glb"/>
+                            <input class="form-control" type="file" id="previewModel" onchange="updatePreviewModel(this)" accept=".glb"/>
                         </div>
                     </div>
 
@@ -64,6 +64,7 @@
                             <label for="blenderModel" class="form-label">Blender model:</label>
                             <input class="form-control" type="file" id="blenderModel" accept=".blend"/>
                         </div>
+
                         <div>
                             <label for="fbxModel" class="form-label">FBX model:</label>
                             <input class="form-control" type="file" id="fbxModel" accept=".fbx"/>
@@ -73,10 +74,14 @@
 
                 <div>
                     <label for="textures" class="form-label">Textures:</label>
-                    <input class="form-control" type="file" id="textures" multiple/>
+                    <input class="form-control" type="file" id="textures" accept=".png" onchange="updatePreviewTexture(this)" multiple/>
+                    
+                    <div class="div-field mt-3">
+
+                    </div>
                 </div>
 
-                <input class="form-submit w-25 ml-a mr-0" type="submit" value="Upload">
+                <input class="form-submit w-25 ml-auto mr-0" type="submit" value="Upload">
             </form>
         </div>
     </body>

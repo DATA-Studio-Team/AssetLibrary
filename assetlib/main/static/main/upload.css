@@ -1,3 +1,7 @@
-.model-frame model-viewer {
+.div-field {
+    min-height: 6vh;
+}
+
+.div-field model-viewer {
     height: 40vh;
 }

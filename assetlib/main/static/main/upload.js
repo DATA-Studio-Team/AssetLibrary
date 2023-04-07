@@ -1,15 +1,20 @@
-function previewModelSet(el) {
-    
-    var tgt = el.target || window.event.srcElement, files = tgt.files;
+function updatePreviewModel(el) 
+{
 
-    if (FileReader && files && files.length) {
+    if (FileReader && el.files && files.length) 
+    {
         var fr = new FileReader();
 
-        fr.onload = function () {
+        fr.onload = function () 
+        {
             document.getElementById("preview").src = fr.result;
         }
 
-        fr.readAsDataURL(files[0]);
+        fr.readAsDataURL(el.files[0]);
     }
+}
+
+function updatePreviewTexture(el) 
+{
 
 }
