@@ -48,13 +48,18 @@ a {
 
 }
 
-.form-control {
+.form-control,
+.model-frame {
     color: inherit;
 
     background-color: #272727;
     box-shadow: 0 0 15px 2px #1d1d1d inset;
     border: solid 2px #454545;
     border-radius: 15px;
+}
+
+.form-control[type=file]::file-selector-button {
+    display: none;
 }
 
 .form-control:focus {
