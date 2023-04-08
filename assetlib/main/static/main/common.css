@@ -5,6 +5,10 @@ body {
     background-color: #333333;
 }
 
+.w-20 {
+    width: 20%;
+}
+
 .top {
     background-color: #333333;
     overflow: auto;

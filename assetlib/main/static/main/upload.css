@@ -5,3 +5,10 @@
 .div-field model-viewer {
     height: 40vh;
 }
+
+.texture-viewer h6 {
+    font-size: 0.85rem !important;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 120%;
+}
