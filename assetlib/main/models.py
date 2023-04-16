@@ -27,6 +27,6 @@ class CardContentModel(models.Model):
     fbx_mesh = models.FileField(upload_to=mesh_content_path)
     preview_mesh = models.FileField(upload_to=mesh_content_path)
 
-    tags = ArrayField(models.ForeignKey(CardTagsModel, on_delete=models.CASCADE))
+    tags = models.ManyToManyField(CardTagsModel)
 
     textures = ArrayField(models.FileField(upload_to=texture_content_path))
