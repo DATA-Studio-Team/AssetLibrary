@@ -56,6 +56,19 @@ def library_view(request: HttpRequest):
 
 def upload_view(request: HttpRequest):
 
+    if not request.user.is_authenticated:
+        return redirect("login")
+    
+    if request.method == "POST":
+        form = UploadForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            newCard = CardContentModel(
+                blender_mesh=form.blender_mesh
+            )
+
+            newCard.save()
+
     return render(request, "main/upload.html")
 
 

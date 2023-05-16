@@ -34,6 +34,7 @@
 
         <div class="content adjusted-content mx-auto">
             <form class="d-flex flex-column gap-4 mt-4" method="post">
+                {% csrf_token %}
                 <div class="w-50">
                     <label class="form-label" for="name">Model name:</label>
                     <input class="form-control" id="name" name="name" minlength="2" type="text" placeholder="Enter model name..">

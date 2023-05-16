@@ -13,10 +13,10 @@ class CardTagsModel(models.Model):
 class CardContentModel(models.Model):
 
     def mesh_content_path(instance, filename):
-        return 'assets/{0}_{1}/{2}'.format(instance.card_name, instance.id, filename)
+        return 'assets/{0}/{1}'.format(instance.id, filename)
 
     def texture_content_path(instance, filename):
-        return 'assets/{0}_{1}/textures/{2}'.format(instance.card_name, instance.id, filename)
+        return 'assets/{0}/textures/{1}'.format(instance.id, filename)
 
     card_name = models.TextField()
     card_description = models.TextField()
