@@ -62,13 +62,26 @@ def upload_view(request: HttpRequest):
     if request.method == "POST":
         form = UploadForm(request.POST, request.FILES)
 
+        print(request.FILES)
+
         if form.is_valid():
             newCard = CardContentModel(
-                blender_mesh=form.blender_mesh
+                card_name=form.cleaned_data['card_name'],
+                card_description=form.cleaned_data['card_description'],
+                author=request.user,
+                blender_mesh=form.cleaned_data['blender_mesh'],
+                fbx_mesh=form.cleaned_data['fbx_mesh'],
+                preview_mesh=form.cleaned_data['preview_mesh']
             )
 
             newCard.save()
 
-    return render(request, "main/upload.html")
+            return redirect("library")
+        
+        print(form.errors)
+
+        return render(request, "main/upload.html", {'form': form})
+
+    return render(request, "main/upload.html", {'form': UploadForm()})
 
 

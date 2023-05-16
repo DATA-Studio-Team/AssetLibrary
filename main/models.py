@@ -29,4 +29,4 @@ class CardContentModel(models.Model):
 
     tags = models.ManyToManyField(CardTagsModel)
 
-    textures = ArrayField(models.FileField(upload_to=texture_content_path))
+    textures = ArrayField(models.FileField(upload_to=texture_content_path), null=True)
