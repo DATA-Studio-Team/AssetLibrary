@@ -13,6 +13,7 @@ class CardTagsModel(models.Model):
 class CardContentModel(models.Model):
 
     def mesh_content_path(instance, filename):
+        print(instance)
         return 'assets/{0}/{1}'.format(instance.id, filename)
 
     def texture_content_path(instance, filename):
@@ -23,9 +24,9 @@ class CardContentModel(models.Model):
 
     author = models.ForeignKey(User, on_delete=models.CASCADE)
 
-    blender_mesh = models.FileField(upload_to=mesh_content_path)
-    fbx_mesh = models.FileField(upload_to=mesh_content_path)
-    preview_mesh = models.FileField(upload_to=mesh_content_path)
+    blender_mesh = models.FileField(upload_to=mesh_content_path, null=True)
+    fbx_mesh = models.FileField(upload_to=mesh_content_path, null=True)
+    preview_mesh = models.FileField(upload_to=mesh_content_path, null=True)
 
     tags = models.ManyToManyField(CardTagsModel)
 

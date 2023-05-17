@@ -68,11 +68,14 @@ def upload_view(request: HttpRequest):
             newCard = CardContentModel(
                 card_name=form.cleaned_data['card_name'],
                 card_description=form.cleaned_data['card_description'],
-                author=request.user,
-                blender_mesh=form.cleaned_data['blender_mesh'],
-                fbx_mesh=form.cleaned_data['fbx_mesh'],
-                preview_mesh=form.cleaned_data['preview_mesh']
+                author=request.user
             )
+
+            newCard.save()
+
+            newCard.blender_mesh = form.cleaned_data['blender_mesh']
+            newCard.fbx_mesh = form.cleaned_data['fbx_mesh']
+            newCard.preview_mesh = form.cleaned_data['preview_mesh']
 
             newCard.save()
 
