@@ -50,9 +50,16 @@ def library_view(request: HttpRequest):
     for categories in CardTagsCategoriesModel.objects.all():
         filters[categories.category_name] = list(map(lambda el: (el.tag_name, "{}-{}".format(el.tag_name.lower().replace(' ', '-'), el.id)), CardTagsModel.objects.filter(category_id=categories)))
 
-    print(filters)
+    if request.method == "GET":
+        form = SearchForm(request.GET)
 
-    return render(request, "main/index.html", { 'filters': filters })
+        print(form.errors)
+
+        if form.is_valid():
+
+            return render(request, "main/index.html", { 'filters': filters, 'cards': CardContentModel.objects.filter(card_name__icontains = form.cleaned_data['query']), 'form' : form })
+
+    return render(request, "main/index.html", { 'filters': filters, 'cards': CardContentModel.objects.all(), 'form': SearchForm() })
 
 def upload_view(request: HttpRequest):
 
@@ -61,8 +68,6 @@ def upload_view(request: HttpRequest):
     
     if request.method == "POST":
         form = UploadForm(request.POST, request.FILES)
-
-        print(request.FILES)
 
         if form.is_valid():
             newCard = CardContentModel(
@@ -80,8 +85,6 @@ def upload_view(request: HttpRequest):
             newCard.save()
 
             return redirect("library")
-        
-        print(form.errors)
 
         return render(request, "main/upload.html", {'form': form})
 

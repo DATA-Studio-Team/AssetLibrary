@@ -3,7 +3,9 @@
     <head>
         
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-        
+
+        <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.0.1/model-viewer.min.js"></script>
+
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Lexend&display=swap" rel="stylesheet">
@@ -30,10 +32,10 @@
 
         <div class="content">
             <div class="adjusted-content mx-auto">
-                <div class="search-text-and-submit d-flex mt-5">
-                    <input type="text" class="text-input m-2 w-75" placeholder="Search">
+                <form class="search-text-and-submit d-flex mt-5" method="get">
+                    <input type="text" class="text-input m-2 w-75" name="query" placeholder="Search" value="{{ form.data.query }}">
                     <input type="submit" class="submit-search m-2 w-25" value="Search">
-                </div>
+                </form>
 
                 <div class="search-bottom d-flex my-3">
                     <div class="search-filters mx-2">
@@ -56,215 +58,26 @@
                     </div>
 
                     <div class="search-result d-flex flex-row flex-wrap justify-content-evenly align-items-start ">
+                        
+                        {% for card in cards %}
                         <div class="search-result-card">
-                            <img src="img/thumbnails/image 1.png">
-                            <p class="card-author">Uploaded by USERNAME</p>
-                            <p class="card-model-name">Porta-Potti Closed</p>
-                            <div class="card-model-tags d-flex flex-nowrap">
+                            <model-viewer src="{{ card.preview_mesh.url }}" camera-controls interaction-prompt="none" auto-rotate auto-rotate-delay="3000" rotation-per-second="25deg"></model-viewer>
+                            <p class="card-author">Uploaded by {{ user.username }}</p>
+                            <p class="card-model-name">{{ card.card_name }}</p>
+                            
+                            <!--<div class="card-model-tags d-flex flex-nowrap">
                                 <div>Construction</div>
                                 <div>Props</div>
                                 <div>Plastic</div>
-                            </div>
-                            <div class="card-links">
-                                <div class="card-link"></div>
-                                <div class="card-download">Export</div>
-                            </div>
-                        </div>
+                            </div>-->
 
-                        <div class="search-result-card">
-                            <img src="img/thumbnails/image 2.png">
-                            <p class="card-author">Uploaded by USERNAME</p>
-                            <p class="card-model-name">Cardboard Boxes Grouped</p>
-                            <div class="card-model-tags d-flex flex-nowrap">
-                                <div>Construction</div>
-                                <div>Cardboard</div>
-                            </div>
                             <div class="card-links">
                                 <div class="card-link"></div>
-                                <div class="card-download">Export</div>
+                                <a href="{{ card.blender_mesh.url }}" download class="card-download">Export</a>
                             </div>
                         </div>
+                        {% endfor %}
 
-                        <div class="search-result-card">
-                            <img src="img/thumbnails/image 3.png">
-                            <p class="card-author">Uploaded by USERNAME</p>
-                            <p class="card-model-name">Cement Sacks Grouped</p>
-                            <div class="card-model-tags d-flex flex-nowrap">
-                                <div>Construction</div>
-                                <div>Props</div>
-                                <div>Concrete</div>
-                            </div>
-                            <div class="card-links">
-                                <div class="card-link"></div>
-                                <div class="card-download">Export</div>
-                            </div>
-                        </div>
-
-                        <div class="search-result-card">
-                            <img src="img/thumbnails/image 4.png">
-                            <p class="card-author">Uploaded by USERNAME</p>
-                            <p class="card-model-name">Light Generator</p>
-                            <div class="card-model-tags d-flex flex-nowrap">
-                                <div>Construction</div>
-                                <div>Props</div>
-                                <div>Electronic</div>
-                            </div>
-                            <div class="card-links">
-                                <div class="card-link"></div>
-                                <div class="card-download">Export</div>
-                            </div>
-                        </div>
-
-                        <div class="search-result-card">
-                            <img src="img/thumbnails/image 5.png">
-                            <p class="card-author">Uploaded by USERNAME</p>
-                            <p class="card-model-name">Wooden Crate 01</p>
-                            <div class="card-model-tags d-flex flex-nowrap">
-                                <div>Construction</div>
-                                <div>Props</div>
-                                <div>Wood</div>
-                            </div>
-                            <div class="card-links">
-                                <div class="card-link"></div>
-                                <div class="card-download">Export</div>
-                            </div>
-                        </div>
-
-                        <div class="search-result-card">
-                            <img src="img/thumbnails/image 6.png">
-                            <p class="card-author">Uploaded by USERNAME</p>
-                            <p class="card-model-name">Water Container</p>
-                            <div class="card-model-tags d-flex flex-nowrap">
-                                <div>Construction</div>
-                                <div>Props</div>
-                                <div>Plastic</div>
-                            </div>
-                            <div class="card-links">
-                                <div class="card-link"></div>
-                                <div class="card-download">Export</div>
-                            </div>
-                        </div>
-
-                        <div class="search-result-card">
-                            <img src="img/thumbnails/image 7.png">
-                            <p class="card-author">Uploaded by USERNAME</p>
-                            <p class="card-model-name">Cement Bricks Stacked</p>
-                            <div class="card-model-tags d-flex flex-nowrap">
-                                <div>Construction</div>
-                                <div>Props</div>
-                                <div>Wood</div>
-                                <div>Concrete</div>
-                            </div>
-                            <div class="card-links">
-                                <div class="card-link"></div>
-                                <div class="card-download">Export</div>
-                            </div>
-                        </div>
-
-                        <div class="search-result-card">
-                            <img src="img/thumbnails/image 1.png">
-                            <p class="card-author">Uploaded by USERNAME</p>
-                            <p class="card-model-name">Porta-Potti Closed</p>
-                            <div class="card-model-tags d-flex flex-nowrap">
-                                <div>Construction</div>
-                                <div>Props</div>
-                                <div>Plastic</div>
-                            </div>
-                            <div class="card-links">
-                                <div class="card-link"></div>
-                                <div class="card-download">Export</div>
-                            </div>
-                        </div>
-
-                        <div class="search-result-card">
-                            <img src="img/thumbnails/image 2.png">
-                            <p class="card-author">Uploaded by USERNAME</p>
-                            <p class="card-model-name">Cardboard Boxes Grouped</p>
-                            <div class="card-model-tags d-flex flex-nowrap">
-                                <div>Construction</div>
-                                <div>Cardboard</div>
-                            </div>
-                            <div class="card-links">
-                                <div class="card-link"></div>
-                                <div class="card-download">Export</div>
-                            </div>
-                        </div>
-
-                        <div class="search-result-card">
-                            <img src="img/thumbnails/image 3.png">
-                            <p class="card-author">Uploaded by USERNAME</p>
-                            <p class="card-model-name">Cement Sacks Grouped</p>
-                            <div class="card-model-tags d-flex flex-nowrap">
-                                <div>Construction</div>
-                                <div>Props</div>
-                                <div>Concrete</div>
-                            </div>
-                            <div class="card-links">
-                                <div class="card-link"></div>
-                                <div class="card-download">Export</div>
-                            </div>
-                        </div>
-
-                        <div class="search-result-card">
-                            <img src="img/thumbnails/image 4.png">
-                            <p class="card-author">Uploaded by USERNAME</p>
-                            <p class="card-model-name">Light Generator</p>
-                            <div class="card-model-tags d-flex flex-nowrap">
-                                <div>Construction</div>
-                                <div>Props</div>
-                                <div>Electronic</div>
-                            </div>
-                            <div class="card-links">
-                                <div class="card-link"></div>
-                                <div class="card-download">Export</div>
-                            </div>
-                        </div>
-
-                        <div class="search-result-card">
-                            <img src="img/thumbnails/image 5.png">
-                            <p class="card-author">Uploaded by USERNAME</p>
-                            <p class="card-model-name">Wooden Crate 01</p>
-                            <div class="card-model-tags d-flex flex-nowrap">
-                                <div>Construction</div>
-                                <div>Props</div>
-                                <div>Wood</div>
-                            </div>
-                            <div class="card-links">
-                                <div class="card-link"></div>
-                                <div class="card-download">Export</div>
-                            </div>
-                        </div>
-
-                        <div class="search-result-card">
-                            <img src="img/thumbnails/image 6.png">
-                            <p class="card-author">Uploaded by USERNAME</p>
-                            <p class="card-model-name">Water Container</p>
-                            <div class="card-model-tags d-flex flex-nowrap">
-                                <div>Construction</div>
-                                <div>Props</div>
-                                <div>Plastic</div>
-                            </div>
-                            <div class="card-links">
-                                <div class="card-link"></div>
-                                <div class="card-download">Export</div>
-                            </div>
-                        </div>
-
-                        <div class="search-result-card">
-                            <img src="img/thumbnails/image 7.png">
-                            <p class="card-author">Uploaded by USERNAME</p>
-                            <p class="card-model-name">Cement Bricks Stacked</p>
-                            <div class="card-model-tags d-flex flex-nowrap">
-                                <div>Construction</div>
-                                <div>Props</div>
-                                <div>Wood</div>
-                                <div>Concrete</div>
-                            </div>
-                            <div class="card-links">
-                                <div class="card-link"></div>
-                                <div class="card-download">Export</div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>

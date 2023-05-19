@@ -181,7 +181,7 @@
     max-width: 254px;
 }
 
-.search-result-card img {
+.search-result-card model-viewer {
     width: 200px;
     margin: 0px 10px;
 

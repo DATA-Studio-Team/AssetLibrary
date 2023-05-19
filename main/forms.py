@@ -15,3 +15,6 @@ class UploadForm(forms.Form):
    #tags = forms.MultipleChoiceField()
 
    #textures = forms.FileField()
+
+class SearchForm(forms.Form):
+    query = forms.CharField(min_length=1, max_length=50, initial="")

@@ -6,9 +6,15 @@ class CardTagsCategoriesModel(models.Model):
     category_name = models.CharField(max_length=50)
     order = models.SmallIntegerField(unique=True)
 
+    def __str__(self):
+        return self.category_name
+
 class CardTagsModel(models.Model):
     tag_name = models.CharField(max_length=50)
     category = models.ForeignKey(CardTagsCategoriesModel, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.tag_name
 
 class CardContentModel(models.Model):
 
