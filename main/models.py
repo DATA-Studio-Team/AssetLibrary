@@ -1,4 +1,3 @@
-from django.contrib.postgres.fields import ArrayField
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -36,4 +35,4 @@ class CardContentModel(models.Model):
 
     tags = models.ManyToManyField(CardTagsModel)
 
-    textures = ArrayField(models.FileField(upload_to=texture_content_path), null=True)
+    #textures = ArrayField(models.FileField(upload_to=texture_content_path), null=True)
