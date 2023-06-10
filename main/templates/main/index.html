@@ -42,15 +42,15 @@
                         <h6>FILTERS</h6>
 
                         {% for category, tags in filters.items %}
-                            <hr>
-
                             <ul>
+                                <hr>
+
                                 <li>{{ category }}</li>
 
                                 <hr>
 
-                                {% for name, id in tags %}
-                                    <li><input type="checkbox" id="{{id}}"> <label for="{{id}}">{{name}}</label></li>
+                                {% for name, link, id in tags %}
+                                    <li><input type="checkbox" name="tags[]" value="{{id}}" id="{{link}}"> <label for="{{link}}">{{name}}</label></li>
                                 {% endfor %}
                             </ul>
                         {% endfor%}

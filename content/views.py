@@ -28,6 +28,6 @@ def upload_view(request: HttpRequest):
 
             return redirect('library')
 
-        return render(request, "content/upload.html", { 'form': form })
+        return render(request, "content/upload.html", { 'form': form, 'filters': AssetTagCategory.get_dictionary() })
 
-    return render(request, "content/upload.html", { 'form': UploadForm() })
+    return render(request, "content/upload.html", { 'form': UploadForm(), 'filters': AssetTagCategory.get_dictionary() })

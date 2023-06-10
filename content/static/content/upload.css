@@ -6,9 +6,18 @@
     height: 40vh;
 }
 
+.texture-viewer {
+    border: solid 2px #454545;
+    box-shadow: 0 0 15px 2px #1d1d1d;
+    background-color: #333333;
+    border-radius: 15px;
+    padding: 10px;
+}
+
 .texture-viewer h6 {
     font-size: 0.85rem !important;
     text-overflow: ellipsis;
+    text-align: center;
     overflow: hidden;
     width: 120%;
 }

@@ -12,9 +12,9 @@
 
         {% load static %}
         <link href="{% static 'main/common.css' %}" rel="stylesheet">
-        <link href="{% static 'main/upload.css' %}" rel="stylesheet">
+        <link href="{% static 'content/upload.css' %}" rel="stylesheet">
 
-        <script src="{% static 'main/upload.js' %}"></script>
+        <script src="{% static 'content/upload.js' %}"></script>
 
         <title>Asset Library</title>
 
@@ -37,7 +37,7 @@
                 {% csrf_token %}
                 <div class="w-50">
                     <label class="form-label" for="name">Model name:</label>
-                    <input class="form-control" id="name" name="card_name" minlength="2" type="text" placeholder="Enter model name..">
+                    <input class="form-control" id="name" name="card_name" minlength="2" type="text" placeholder="Enter model name.." required>
                 </div>
                 
                 <div>
@@ -45,52 +45,71 @@
                     <textarea class="form-control" id="description" name="card_description" type="text" placeholder="Enter model description.."></textarea>
                 </div>
 
-                <div class="d-flex justify-content-evenly gap-4">
-                    <div class="w-50 d-flex flex-column gap-4 justify-content-center">
-                        <div>
-                            <label class="form-label">Preview:</label>
-                            <div class="div-field">
-                                <model-viewer class="w-100" id="preview" camera-controls interaction-prompt="none" auto-rotate auto-rotate-delay="3000" rotation-per-second="25deg"></model-viewer>
-                            </div>
-                        </div>
-
-                        <div>
-                            <label for="preview_mesh" class="form-label">Preview model:</label>
-                            <input class="form-control" type="file" name="preview_mesh" id="preview_mesh" onchange="updatePreviewModel(this)" accept=".glb"/>
-                        </div>
+                <div class="d-flex justify-content-evenly gap-5">
+                    <div class="d-flex flex-fill flex-column">
+                        <label for="blender_mesh" class="form-label">Blender model:</label>
+                        <input class="form-control flex-fill" type="file" name="blender_mesh" id="blender_mesh" accept=".blend" required>
                     </div>
 
-                    <div class="d-flex flex-column gap-4 justify-content-evenly">
-                        <div class="d-flex flex-fill flex-column">
-                            <label for="blender_mesh" class="form-label">Blender model:</label>
-                            <input class="form-control flex-fill" type="file" name="blender_mesh" id="blender_mesh" accept=".blend"/>
-                        </div>
+                    <div class="d-flex flex-fill flex-column">
+                        <label for="preview_mesh" class="form-label">Preview model:</label>
+                        <input class="form-control" type="file" name="preview_mesh" id="preview_mesh" onchange="updatePreviewModel(this)" accept=".glb">
+                    </div>
 
-                        <div class="d-flex flex-fill flex-column">
-                            <label for="fbx_mesh" class="form-label">FBX model:</label>
-                            <input class="form-control flex-fill" type="file" name="fbx_mesh" id="fbx_mesh" accept=".fbx"/>
+                    <div class="d-flex flex-fill flex-column">
+                        <label for="fbx_mesh" class="form-label">FBX model:</label>
+                        <input class="form-control flex-fill" type="file" name="fbx_mesh" id="fbx_mesh" accept=".fbx">
+                    </div>
+                </div>
+
+                <div class="w-50 align-self-center">
+                    <div>
+                        <label class="form-label">Preview:</label>  
+                        <div class="div-field">
+                            <model-viewer class="w-100" id="preview" camera-controls interaction-prompt="none" auto-rotate auto-rotate-delay="3000" rotation-per-second="25deg"></model-viewer>
                         </div>
                     </div>
                 </div>
 
-                <!--<div>
+                <div>
                     <label for="textures" class="form-label">Textures:</label>
-                    <input class="form-control" type="file" id="textures" accept=".png" onchange="updatePreviewTexture(this)" multiple/>
+
+                    <input class="form-control" type="file" name="textures" accept=".png" onchange="updatePreviewTexture(this)" multiple/>
                     
                     <div class="div-field mt-3 d-flex flex-row flex-wrap gap-2 justify-content-evenly p-3" id="texturesPreview">
 
                     </div>
-                </div>-->
+                </div>
+
+                <div>
+                    <h6>Choose tags:</h6>
+
+                    <div class="d-flex search-filters w-100 gap-5">
+                        {% for category, tags in filters.items %}
+                            <ul>
+                                <hr>
+
+                                <li>{{ category }}</li>
+
+                                <hr>
+
+                                {% for name, link, id in tags %}
+                                    <li><input type="checkbox" name="tags[]" value="{{id}}" id="{{link}}"> <label for="{{link}}">{{name}}</label></li>
+                                {% endfor %}
+                            </ul>
+                        {% endfor%}
+                    </div>
+                </div>
 
                 <input class="form-submit w-25 ml-auto mr-0" type="submit" value="Upload">
             </form>
         </div>
 
-        <!--<template id="textureContainer">
+        <template id="textureContainer">
             <div class="d-flex flex-column justify-content-center align-items-center w-20 gap-2 texture-viewer">
                 <img class="w-100">
                 <h6 class="fs-6">TEMPLATE</h6>
             </div>
-        </template>-->
+        </template>
     </body>
 </html>

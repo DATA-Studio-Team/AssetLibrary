@@ -10,6 +10,15 @@ class AssetTagCategory(models.Model):
     name = models.CharField(max_length=50)
     order = models.SmallIntegerField(unique=True)
 
+    @staticmethod
+    def get_dictionary():
+        filters = dict()
+
+        for categories in AssetTagCategory.objects.all():
+            filters[categories.name] = list(map(lambda el: (el.name, el.get_named_list(), el.pk), AssetTag.objects.filter(category_id=categories)))
+
+        return filters
+
     def __str__(self):
         return self.name
 
@@ -21,6 +30,9 @@ class AssetTag(models.Model):
 
     name = models.CharField(max_length=50)
     category = models.ForeignKey(AssetTagCategory, on_delete=models.CASCADE)
+
+    def get_named_list(self): 
+        return "{}-{}".format(self.name.lower().replace(' ', '-'), self.pk)
 
     def __str__(self):
         return self.name

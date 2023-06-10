@@ -89,3 +89,83 @@ a {
     background-color: transparent;
     color: #EE7700
 }
+
+
+
+.search-filters {
+    width: 20%;
+}
+
+.search-filters hr {
+    border: none;
+    border: 1px solid #454545;
+    opacity: 1;
+    border-radius: 20px;
+}
+
+.search-filters ul {
+    list-style: none;
+
+    padding: 0;
+    margin: 0;
+}
+
+.search-filters ul li:nth-child(2) {
+    font-size: 20px;
+    color: inherit;
+}
+
+.search-filters ul li {
+    color: #70737C;
+    margin: 10px 0;
+}
+
+.search-filters input {
+    opacity: 0;
+    z-index: -1;
+    position: absolute;
+}
+
+.search-filters input + label {
+    display: inline-flex;
+    align-items: center;
+    user-select: none;
+
+    transition: all ease-in-out 0.15s;
+}
+
+.search-filters input + label::before {
+    content: "";
+    display: inline-block;
+    border: solid 2px #454545;
+    border-radius: 25%;
+
+    margin: 0 10px 0 0;
+
+    width: 20px;
+    height: 20px;
+
+    flex-shrink: 0;
+    flex-grow: 0;
+    
+    background: no-repeat center 400% url("/static/main/util/checkmark.svg");
+
+    transition: all ease-in-out 0.15s;
+}
+
+.search-filters input:hover + label {
+    color: #BBBBBB;
+}
+
+.search-filters input:hover + label::before {
+    border-color: #BBBBBB;
+}
+
+.search-filters input:checked + label {
+    color: #EE7700;
+}
+
+.search-filters input:checked + label::before {
+    border-color: #EE7700;
+    background-position: center;
+}
