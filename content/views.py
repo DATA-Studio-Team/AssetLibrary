@@ -28,6 +28,6 @@ def upload_view(request: HttpRequest):
 
             return redirect('library')
 
-        return render(request, "main/upload.html", { 'form': form })
+        return render(request, "content/upload.html", { 'form': form })
 
-    return render(request, "main/upload.html", { 'form': UploadForm() })
+    return render(request, "content/upload.html", { 'form': UploadForm() })

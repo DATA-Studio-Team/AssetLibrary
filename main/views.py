@@ -6,21 +6,21 @@ from content.models import *
 def enter_view(request: HttpRequest):
 
     if request.user.is_authenticated:
-        return redirect("library")
+        return redirect('library')
     
-    return redirect("auth")
+    return redirect('auth')
 
 def library_view(request: HttpRequest):
 
     if not request.user.is_authenticated:
-        return redirect("auth")
+        return redirect('auth')
 
     filters = dict()
 
     for categories in AssetTagCategory.objects.all():
-        filters[categories.category_name] = list(map(lambda el: (el.tag_name, "{}-{}".format(el.tag_name.lower().replace(' ', '-'), el.id)), AssetTag.objects.filter(category_id=categories)))
+        filters[categories.name] = list(map(lambda el: (el.name, "{}-{}".format(el.name.lower().replace(' ', '-'), el.id)), AssetTag.objects.filter(category_id=categories)))
 
-    if request.method == "GET":
+    if request.method == 'GET':
         form = SearchForm(request.GET)
 
         print(form.errors)

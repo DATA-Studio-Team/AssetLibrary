@@ -4,8 +4,8 @@ from django.contrib.auth.models import User
 class AssetTagCategory(models.Model):
 
     class Meta:
-        verbose_name = "asset_tag_category"
-        verbose_name_plural = "asset_tag_categories"
+        verbose_name = "Asset Category"
+        verbose_name_plural = "Asset Categories"
 
     name = models.CharField(max_length=50)
     order = models.SmallIntegerField(unique=True)
@@ -16,8 +16,8 @@ class AssetTagCategory(models.Model):
 class AssetTag(models.Model):
 
     class Meta:
-        verbose_name = "asset_tag"
-        verbose_name_plural = "asset_tags"
+        verbose_name = "Asset Tag"
+        verbose_name_plural = "Asset Tags"
 
     name = models.CharField(max_length=50)
     category = models.ForeignKey(AssetTagCategory, on_delete=models.CASCADE)
@@ -28,8 +28,8 @@ class AssetTag(models.Model):
 class Texture(models.Model):
 
     class Meta:
-        verbose_name = "texture"
-        verbose_name_plural = "textures"
+        verbose_name = "Texture"
+        verbose_name_plural = "Textures"
 
     def content_path(instance, filename):
         return 'textures/{0}/{1}'.format(instance.id, filename)
@@ -39,8 +39,8 @@ class Texture(models.Model):
 class Asset(models.Model):
 
     class Meta:
-        verbose_name = "asset"
-        verbose_name_plural = "assets"
+        verbose_name = "Asset"
+        verbose_name_plural = "Assets"
 
     def content_path(instance, filename):
         print(instance)
