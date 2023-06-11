@@ -22,9 +22,9 @@ def library_view(request: HttpRequest):
 
         if form.is_valid():
 
-            return render(request, "main/index.html", { 'filters': AssetTagCategory.get_dictionary(), 'cards': Asset.objects.filter(card_name__icontains = form.cleaned_data['query']), 'form' : form })
+            return render(request, "main/index.html", { 'filters': AssetTagCategory.get_dictionary(), 'assets': Asset.objects.filter(name__icontains = form.cleaned_data['query']), 'form' : form })
 
-    return render(request, "main/index.html", { 'filters': AssetTagCategory.get_dictionary(), 'cards': Asset.objects.all(), 'form': SearchForm() })
+    return render(request, "main/index.html", { 'filters': AssetTagCategory.get_dictionary(), 'assets': Asset.objects.all(), 'form': SearchForm() })
 
 
 

@@ -13,8 +13,8 @@ def upload_view(request: HttpRequest):
 
         if form.is_valid():
             newCard = Asset(
-                card_name=form.cleaned_data['card_name'],
-                card_description=form.cleaned_data['card_description'],
+                name=form.cleaned_data['card_name'],
+                description=form.cleaned_data['card_description'],
                 author=request.user
             )
 
@@ -23,6 +23,22 @@ def upload_view(request: HttpRequest):
             newCard.blender_mesh = form.cleaned_data['blender_mesh']
             newCard.fbx_mesh = form.cleaned_data['fbx_mesh']
             newCard.preview_mesh = form.cleaned_data['preview_mesh']
+
+            for textureFile in request.FILES.getlist('textures'):
+                newTexture = Texture()
+                newTexture.save()
+
+                newTexture.texture = textureFile
+
+                newTexture.save()
+
+                newCard.textures.add(newTexture)
+
+            for tagId in request.POST.getlist('tags[]'):
+                tag = AssetTag.objects.get(pk=tagId)
+
+                if tag is not None:
+                    newCard.tags.add(tag)
 
             newCard.save()
 

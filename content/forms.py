@@ -5,9 +5,9 @@ class UploadForm(forms.Form):
     card_description = forms.CharField(min_length=0, max_length=500, initial="")
 
     blender_mesh = forms.FileField()
-    fbx_mesh = forms.FileField()
-    preview_mesh = forms.FileField()
+    fbx_mesh = forms.FileField(required=False)
+    preview_mesh = forms.FileField(required=False)
 
    #tags = forms.MultipleChoiceField()
 
-   #textures = forms.FileField()
+    textures = forms.FileField(required=False)

@@ -56,7 +56,7 @@ class Asset(models.Model):
 
     def content_path(instance, filename):
         print(instance)
-        return 'assets/{0}/{1}'.format(instance.id, filename)
+        return 'meshes/{0}/{1}'.format(instance.id, filename)
 
     name = models.TextField()
     description = models.TextField()
@@ -67,6 +67,6 @@ class Asset(models.Model):
     fbx_mesh = models.FileField(upload_to=content_path, null=True)
     preview_mesh = models.FileField(upload_to=content_path, null=True)
 
-    tags = models.ManyToManyField(AssetTag)
-
     textures = models.ManyToManyField(Texture)
+
+    tags = models.ManyToManyField(AssetTag)

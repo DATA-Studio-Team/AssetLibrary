@@ -59,17 +59,17 @@
 
                     <div class="search-result d-flex flex-row flex-wrap justify-content-evenly align-items-start ">
                         
-                        {% for card in cards %}
+                        {% for asset in assets %}
                         <div class="search-result-card">
-                            <model-viewer src="{{ card.preview_mesh.url }}" camera-controls interaction-prompt="none" auto-rotate auto-rotate-delay="3000" rotation-per-second="25deg"></model-viewer>
-                            <p class="card-author">Uploaded by {{ user.username }}</p>
-                            <p class="card-model-name">{{ card.card_name }}</p>
+                            <model-viewer src="{{ asset.preview_mesh.url }}" camera-controls interaction-prompt="none" auto-rotate auto-rotate-delay="3000" rotation-per-second="25deg"></model-viewer>
+                            <p class="card-author">Uploaded by {{ asset.author }}</p>
+                            <p class="card-model-name">{{ asset.name }}</p>
                             
-                            <!--<div class="card-model-tags d-flex flex-nowrap">
-                                <div>Construction</div>
-                                <div>Props</div>
-                                <div>Plastic</div>
-                            </div>-->
+                            <div class="card-model-tags d-flex flex-nowrap text-nowrap">
+                                {% for tag in asset.tags.all %}
+                                    <div>{{ tag.name }}</div>
+                                {% endfor %}
+                            </div>
 
                             <div class="card-links">
                                 <div class="card-link"></div>
