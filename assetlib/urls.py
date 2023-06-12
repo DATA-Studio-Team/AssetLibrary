@@ -14,16 +14,22 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
+from django.contrib.auth.decorators import login_required
+from django.views.static import serve
 from main import views
 from django.conf import settings
-from django.conf.urls.static import static
 
+
+@login_required
+def protected_serve(request, path, document_root=None, show_indexes=False):
+    return serve(request, path, document_root, show_indexes)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.library_view, name='library'),
     path('', include('custom_auth.urls')),
     path('', include('content.urls')),
-    
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+    re_path(r'^%s(?P<path>.*)$' % settings.MEDIA_URL[1:], protected_serve, {'document_root': settings.MEDIA_ROOT}),
+]
