@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.http import HttpRequest
 from .forms import LoginForm    
 
@@ -23,7 +24,8 @@ def auth_view(request: HttpRequest):
     else:
 
         return render(request, "custom_auth/login.html", { 'form': LoginForm() })
-    
+
+@login_required(login_url='/auth/')
 def logout_view(request: HttpRequest):
 
     if request.user.is_authenticated:

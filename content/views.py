@@ -1,12 +1,11 @@
 from django.shortcuts import render, redirect
 from django.http import HttpRequest
+from django.contrib.auth.decorators import login_required
 from .models import *
 from .forms import *
 
+@login_required(login_url='/auth/')
 def upload_view(request: HttpRequest):
-
-    if not request.user.is_authenticated:
-        return redirect('auth')
     
     if request.method == 'POST':
         form = UploadForm(request.POST, request.FILES)
