@@ -1,7 +1,4 @@
 
-.search-text-and-submit {
-    
-}
 
 .text-input {
     border: solid 2px #454545;
@@ -199,7 +196,9 @@
     justify-content: center;
     align-items: center;
 
-    background-color: #EE7700;
+    background:     no-repeat 5%/18% url("/static/main/util/blender_icon.svg"), 
+                    #EE7700;
+
     border-radius: 10px;
     color: #333333;
     font-weight: bold;
