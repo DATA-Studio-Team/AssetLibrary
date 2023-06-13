@@ -111,11 +111,15 @@
 
 }
 
-.card-author {
+.card-author,
+.card-date {
     margin: 0;
-    margin-top: 20px;
     font-size: 13px;
     color: #70737C;
+}
+
+.card-author {
+    margin-top: 10px;
 }
 
 .card-model-name {

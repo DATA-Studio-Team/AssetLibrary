@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+from datetime import datetime
+
 class AssetTagCategory(models.Model):
 
     class Meta:
@@ -61,7 +63,8 @@ class Asset(models.Model):
     name = models.TextField()
     description = models.TextField()
 
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    last_update = models.DateTimeField(default=datetime.now, blank=True)
 
     blender_mesh = models.FileField(upload_to=content_path, null=True)
     fbx_mesh = models.FileField(upload_to=content_path, null=True)
