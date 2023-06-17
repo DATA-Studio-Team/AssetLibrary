@@ -24,7 +24,9 @@
 
                 <div class="navigation fs-6 d-flex align-items-center">
                     <a href="{% url 'library' %}" class="active">LIBRARY</a>
+                    {% if perms.content.upload_assets %}
                     <a href="{% url 'upload' %}">UPLOAD</a>
+                    {% endif %}
                     <a href="{% url 'logout' %}">LOG OUT</a>
                 </div>
             </div>

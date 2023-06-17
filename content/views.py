@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
 from django.http import HttpRequest
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from .models import *
 from .forms import *
 
 @login_required(login_url='/auth/')
+@permission_required(perm="content.upload_assets", login_url='/auth/')
 def upload_view(request: HttpRequest):
     
     if request.method == 'POST':
