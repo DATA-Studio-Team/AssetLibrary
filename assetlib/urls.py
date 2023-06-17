@@ -19,11 +19,28 @@ from django.contrib.auth.decorators import login_required
 from django.views.static import serve
 from main import views
 from django.conf import settings
-
+from content.models import Asset, Texture
+from django.db.models import Q
+from django.http import HttpResponseNotFound
 
 @login_required(login_url='/auth/')
 def protected_serve(request, path, document_root=None, show_indexes=False):
-    return serve(request, path, document_root, show_indexes)
+    assets = Asset.objects.filter(Q(blender_mesh = path) | Q(fbx_mesh = path) | Q(preview_mesh = path) | Q(textures__in = Texture.objects.filter(texture = path)))
+
+    if not assets.exists():
+        return HttpResponseNotFound()
+
+    asset = assets.first()
+
+    if request.user.has_perm("content.see_own"):
+        if asset.author.pk == request.user.pk:
+            return serve(request, path, document_root, show_indexes)
+        
+    if request.user.has_perm("content.see_other"):
+        if asset.author.pk != request.user.pk:
+            return serve(request, path, document_root, show_indexes)
+
+    return HttpResponseNotFound()
 
 urlpatterns = [
     path('admin/', admin.site.urls),
