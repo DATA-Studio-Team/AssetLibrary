@@ -56,6 +56,14 @@ class Asset(models.Model):
         verbose_name = "Asset"
         verbose_name_plural = "Assets"
 
+        permissions = [
+            ("see_own", "Can see own added assets"),
+            ("see_others", "Can see others added assets"),
+            ("edit_own", "Can edit own assets"),
+            ("edit_others", "Can edit others assets"),
+            ("upload", "Can upload assets")
+        ]
+
     def content_path(instance, filename):
         print(instance)
         return 'meshes/{0}/{1}'.format(instance.id, filename)
