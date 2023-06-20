@@ -215,7 +215,7 @@
     padding-left: 20%;
 }
 
-.favored-container 
+.favorite-container 
 {
     position: relative;
     width: 0;
@@ -228,7 +228,7 @@
     top: -37px;
 }
 
-.favored-label 
+.favorite-label 
 {
     position: absolute;
 
@@ -250,18 +250,18 @@
     transition: all 0.15s ease-in-out;
 }
 
-.favored-label:hover 
+.favorite-label:hover 
 {
     background-color: #454545;
 }
 
-.favored-label:has(.favored-input:checked)
+.favorite-label:has(.favorite-input:checked)
 {
     background-image: url("/static/main/util/heart.svg");
     border-color: #EE7700;
 }
 
-.favored-input 
+.favorite-input 
 {
     display: none;
 }

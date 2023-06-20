@@ -14,6 +14,9 @@
         <link href="{% static 'main/common.css' %}" rel="stylesheet">
         <link href="{% static 'main/index.css' %}" rel="stylesheet">
 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script src="{% static 'main/index.js' %}"></script>
+
         <title>Asset Library</title>
 
     </head>
@@ -35,6 +38,7 @@
         <div class="content">
             <div class="adjusted-content mx-auto">
                 <form class="search-text-and-submit d-flex mt-5" method="get">
+                    {% csrf_token %}
                     <input type="text" class="text-input m-2 w-75" name="query" placeholder="Search" value="{{ form.data.query }}">
                     <input type="submit" class="submit-search m-2 w-25" value="Search">
                 </form>
@@ -64,9 +68,9 @@
                         {% for asset in assets %}
                         <div class="search-result-card">
                             
-                            <div class="favored-container">
-                                <label class="favored-label">
-                                    <input type="checkbox" class="favored-input">
+                            <div class="favorite-container">
+                                <label class="favorite-label">
+                                    <input type="checkbox" class="favorite-input" onchange="changeFavorite(this, {{ asset.pk }})" {% if user in asset.favorites.all %}checked{% endif%}>
                                 </label>
                             </div>
 
@@ -98,6 +102,6 @@
 
         </div>
 
-        <script src="index.js"></script>
+        
     </body>
 </html>

@@ -81,3 +81,5 @@ class Asset(models.Model):
     textures = models.ManyToManyField(Texture)
 
     tags = models.ManyToManyField(AssetTag)
+
+    favorites = models.ManyToManyField(User, related_name="users_favorites")
