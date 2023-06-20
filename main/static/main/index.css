@@ -177,15 +177,14 @@
 
     border-radius: 10px;
 
-    background: no-repeat center center url("/static/main/util/eye_orange.svg"), 
-                no-repeat center 150% url("/static/main/util/eye_grey.svg");
+    background: no-repeat center center url("/static/main/util/eye_orange.svg");
 
     transition: all ease-in-out 0.15s;
 }
 
 .card-link:hover { 
     background-color: #EE7700;
-    background-position-y: -150%, center;
+    background-image: url("/static/main/util/eye_grey.svg");
 }
 
 .card-download {
@@ -196,7 +195,7 @@
     justify-content: center;
     align-items: center;
 
-    background:     no-repeat 5%/18% url("/static/main/util/blender_icon.svg"), 
+    background:     no-repeat 14%/18% url("/static/main/util/blender_icon.svg"), 
                     #EE7700;
 
     border-radius: 10px;
@@ -212,6 +211,8 @@
     background-color: transparent;
     color: #EE7700;
     font-weight: normal;
+
+    padding-left: 20%;
 }
 
 .favored-container 

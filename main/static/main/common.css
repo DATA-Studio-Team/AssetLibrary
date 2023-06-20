@@ -148,8 +148,7 @@ a {
 
     flex-shrink: 0;
     flex-grow: 0;
-    
-    background: no-repeat center 400% url("/static/main/util/checkmark.svg");
+
 
     transition: all ease-in-out 0.15s;
 }
@@ -169,4 +168,6 @@ a {
 .search-filters input:checked + label::before {
     border-color: #EE7700;
     background-position: center;
+    
+    background-color: #EE7700;
 }
