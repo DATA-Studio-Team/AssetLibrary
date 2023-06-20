@@ -213,3 +213,54 @@
     color: #EE7700;
     font-weight: normal;
 }
+
+.favored-container 
+{
+    position: relative;
+    width: 0;
+    height: 0;
+
+    margin-left: auto;
+    margin-right: 0;
+
+    right: 6px;
+    top: -37px;
+}
+
+.favored-label 
+{
+    position: absolute;
+
+    z-index: 2;
+
+    border-radius: 100%;
+
+    width: 45px;
+    height: 45px;
+    
+    background-color: #333333;
+    border: solid 2px #454545;
+    
+    background-image: url("/static/main/util/hollow_heart.svg");
+    background-repeat: no-repeat;
+    background-size: 60%;
+    background-position: center;
+
+    transition: all 0.15s ease-in-out;
+}
+
+.favored-label:hover 
+{
+    background-color: #454545;
+}
+
+.favored-label:has(.favored-input:checked)
+{
+    background-image: url("/static/main/util/heart.svg");
+    border-color: #EE7700;
+}
+
+.favored-input 
+{
+    display: none;
+}

@@ -63,7 +63,15 @@
                         
                         {% for asset in assets %}
                         <div class="search-result-card">
-                            <model-viewer src="{{ asset.preview_mesh.url }}" camera-controls interaction-prompt="none" auto-rotate auto-rotate-delay="3000" rotation-per-second="25deg"></model-viewer>
+                            
+                            <div class="favored-container">
+                                <label class="favored-label">
+                                    <input type="checkbox" class="favored-input">
+                                </label>
+                            </div>
+
+                            <model-viewer src="{{ asset.preview_mesh.url }}" camera-controls interaction-prompt="none" auto-rotate auto-rotate-delay="3000" rotation-per-second="25deg">  
+                            </model-viewer>
                             <p class="card-author">Uploaded by {{ asset.author }}</p>
                             <p class="card-date">Last update {{ asset.last_update|date:"d.m.y H:i" }}</p>
                             <p class="card-model-name">{{ asset.name }}</p>

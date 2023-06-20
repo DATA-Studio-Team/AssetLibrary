@@ -12,9 +12,10 @@ body {
 .top {
     background-color: #333333;
     overflow: auto;
-
+    z-index: 10;
     box-shadow: 0 0 70px 5px rgba(0, 0, 0, 0.25);
-    position: relative;
+    position: sticky;
+    top: 0;
 }
 
 a {
