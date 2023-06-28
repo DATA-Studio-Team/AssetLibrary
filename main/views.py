@@ -5,7 +5,7 @@ from .forms import *
 from content.models import *
 from django.db.models import Case, When, Value, IntegerField
 
-@login_required(login_url='/auth/')
+@login_required(login_url='/auth/', redirect_field_name=None)
 def library_view(request: HttpRequest):
 
     assets = Asset.objects.none()

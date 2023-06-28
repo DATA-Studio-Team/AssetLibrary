@@ -171,3 +171,8 @@ a {
     
     background-color: #EE7700;
 }
+
+.vertical-rule {
+    border: solid 1px #454545;
+    border-radius: 2px;
+}
