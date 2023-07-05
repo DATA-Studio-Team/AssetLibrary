@@ -52,19 +52,19 @@
 
                 <div class="d-flex flex-row mt-5 gap-3 justify-content-evenly">
                     <a href="{{ asset.blender_mesh.url }}" download class="download-button">
-                        Download .blender
+                        Download for Blender
                     </a>
 
                     <a href="{{ asset.fbx_mesh.url }}" download class="download-button">
-                        Download .fbx
+                        Download for Unreal Engine
                     </a>
 
                     <a href="{{ asset.preview_mesh.url }}" download class="download-button">
-                        Download .glb
+                        Download Preview
                     </a>
 
                     <a href="{% url 'download_textures' asset.pk %}" id="texturesDownload" download class="download-button">
-                        Download .png
+                        Download Textures
                     </a>
                 </div>
 

@@ -80,22 +80,22 @@ def download_textures_zip(request: HttpRequest, asset_pk):
     
     asset = asset.first()
 
-    zip_subdir = "textures"
-    zip_filename = "%s.zip" % zip_subdir
+    if not request.user.has_perm("content.see_own") and asset.author == request.user:
+        return Http404()
+    
+    if not request.user.has_perm("content.see_others") and asset.author != request.user:
+        return Http404()
 
-    s = io.BytesIO()
+    zip_filename = "{}_textures.zip".format(asset.name)
 
-    zf = zipfile.ZipFile(s, "w")
+    bytes = io.BytesIO()
+
+    zipFile = zipfile.ZipFile(bytes, "w")
 
     for texture in map(lambda el: el.texture.path, asset.textures.all()):
         fdir, fname = os.path.split(texture)
-        zip_path = os.path.join(zip_subdir, fname)
-        zf.write(texture, zip_path)
+        zipFile.write(texture, fname)
 
-    zf.close()
+    zipFile.close()
 
-    response = HttpResponse(s.getvalue(), content_type = "application/x-zip-compressed", headers = { 'Content-Disposition': 'attachment; filename=%s' % zip_filename})
-
-    #response['Content-Disposition'] = 'attachment; filename=%s' % zip_filename
-
-    return HttpResponse(s.getvalue(), content_type = "application/x-zip-compressed", headers = { 'Content-Disposition': 'attachment; filename=%s' % zip_filename})
+    return HttpResponse(bytes.getvalue(), content_type = "application/x-zip-compressed", headers = { 'Content-Disposition': 'attachment; filename={}'.format(zip_filename) })
