@@ -36,14 +36,36 @@
                 <div class="d-flex flex-row mt-5 gap-3">
                     <model-viewer src="{{ asset.preview_mesh.url }}" class="flex-fill model-preview" camera-controls interaction-prompt="none" auto-rotate auto-rotate-delay="3000" rotation-per-second="25deg"></model-viewer>
                     <div class="vertical-rule"></div>
-                    <div class="flex-fill">
+                    <div class="flex-fill d-flex flex-column">
                         <h1 class="mx-5 my-3 text-center">{{ asset.name }}</h1>
                         <p class="mx-3 my-1">{{ asset.description }}</p>
+
+                        <div class="mx-3 mt-auto mb-0 d-flex gap-2">
+                            {% for tag in asset.tags.all %}
+                            <div class="tag">
+                                {{ tag.name }}
+                            </div>
+                            {% endfor %}
+                        </div>
                     </div>
                 </div>
 
-                <div>
-                    
+                <div class="d-flex flex-row mt-5 gap-3 justify-content-evenly">
+                    <a href="{{ asset.blender_mesh.url }}" download class="download-button">
+                        Download .blender
+                    </a>
+
+                    <a href="{{ asset.fbx_mesh.url }}" download class="download-button">
+                        Download .fbx
+                    </a>
+
+                    <a href="{{ asset.preview_mesh.url }}" download class="download-button">
+                        Download .glb
+                    </a>
+
+                    <a href="#" id="texturesDownload" download class="download-button">
+                        Download .png
+                    </a>
                 </div>
 
             </div>
