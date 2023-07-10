@@ -1,0 +1,27 @@
+{% for asset in assets %}
+<div class="search-result-card">
+                            
+    <div class="favorite-container">
+        <label class="favorite-label">
+            <input type="checkbox" class="favorite-input" onchange="changeFavorite(this, {{ asset.pk }})" {% if user in asset.favorites.all %}checked{% endif%}>
+        </label>
+    </div>
+
+    <model-viewer src="{{ asset.preview_mesh.url }}" camera-controls interaction-prompt="none" auto-rotate auto-rotate-delay="3000" rotation-per-second="25deg">  
+    </model-viewer>
+    <p class="card-author">Uploaded by {{ asset.author }}</p>
+    <p class="card-date">Last update {{ asset.last_update|date:"d.m.y H:i" }}</p>
+    <p class="card-model-name">{{ asset.name }}</p>
+    
+    <div class="card-model-tags d-flex flex-nowrap text-nowrap">
+        {% for tag in asset.tags.all %}
+            <div>{{ tag.name }}</div>
+        {% endfor %}
+    </div>
+
+    <div class="card-links">
+        <a href="{% url 'asset_view' asset.pk %}" class="card-link"></a>
+        <a href="{% url 'download_asset' asset.pk %}" download class="card-download">Download</a>
+    </div>
+</div>
+{% endfor %}

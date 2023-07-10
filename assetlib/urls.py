@@ -45,6 +45,7 @@ def protected_serve(request, path, document_root=None, show_indexes=False):
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.library_view, name='library'),
+    path('assets', views.assets_view),
     path('', include('custom_auth.urls')),
     path('', include('content.urls')),
 
