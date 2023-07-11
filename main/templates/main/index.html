@@ -38,7 +38,7 @@
 
         <div class="content">
             <div class="adjusted-content mx-auto">
-                <form class="search-text-and-submit d-flex mt-5" method="get" id="search">
+                <form class="search-text-and-submit d-flex mt-5" id="search">
                     {% csrf_token %}
                     <input type="text" class="text-input m-2 w-75" name="query" placeholder="Search">
                     <input type="submit" class="submit-search m-2 w-25" hx-post="/assets" hx-trigger="click" hx-target="#search-result" hx-swap="innerHTML" value="Search">
@@ -92,6 +92,13 @@
                             </div>
                         </div>
                         {% endfor %}
+                        {% if lazy_page %}
+                        <form>
+                            {% csrf_token %}
+                            <input type="hidden" name="lazy_page" value="{{ lazy_page }}">
+                            <div hx-post="/assets" hx-trigger="revealed" hx-target="closest form" hx-swap="outerHTML"></div>
+                        <form>
+                        {% endif %}
                     </div>
                 </div>
             </div>

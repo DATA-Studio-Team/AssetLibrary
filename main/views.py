@@ -5,6 +5,8 @@ from .forms import *
 from content.models import *
 from django.db.models import Case, When, Value, IntegerField
 
+ASSETS_PER_PAGE = 30
+
 @login_required(login_url='/auth/', redirect_field_name=None)
 def library_view(request: HttpRequest):
 
@@ -40,12 +42,16 @@ def library_view(request: HttpRequest):
         
         return HttpResponse(status=404)
 
-    return render(request, "main/index.html", { 'filters': AssetTagCategory.get_dictionary(), 'assets': assets[:20] })
+
+    context = { 'filters': AssetTagCategory.get_dictionary(), 'assets': assets[:ASSETS_PER_PAGE] }
+
+    if (len(assets) > ASSETS_PER_PAGE):
+        context['lazy_page'] = 2
+
+    return render(request, "main/index.html", context)
 
 @login_required(login_url='/auth/', redirect_field_name=None)
 def assets_view(request: HttpRequest):
-
-    print(request.POST)
 
     assets = Asset.objects.none()
 
@@ -63,12 +69,31 @@ def assets_view(request: HttpRequest):
 
         if 'query' in request.POST:
             assets = assets.filter(name__icontains = request.POST.get('query'))
+            
+            if 'tags[]' in request.POST:
+                for tag in request.POST.getlist('tags[]'):
+                    assets = assets.filter(tags__in = tag)
 
-        if 'tags[]' in request.POST:
-            for tag in request.POST.getlist('tags[]'):
-                assets = assets.filter(tags__in = tag)
+            context = { 'assets': assets[:ASSETS_PER_PAGE] }
 
-        return render(request, "main/asset_template.html", { 'filters': AssetTagCategory.get_dictionary(), 'assets': assets[:20] })
+            if (len(assets) > ASSETS_PER_PAGE):
+                context['lazy_page'] = 2
 
-    return render(request, "main/asset_template.html", { 'assets': assets[:20] })
+            return render(request, "main/asset_template.html", context)
+
+        if 'lazy_page' in request.POST:
+            page = int(request.POST.get('lazy_page'))
+
+            assets = assets[(page - 1) * ASSETS_PER_PAGE : page * ASSETS_PER_PAGE]
+
+            context = { 'assets': assets }
+
+            if len(assets) == ASSETS_PER_PAGE:
+                context['lazy_page'] = page + 1
+            
+            return render(request, "main/asset_template.html", context)
+        
+        return HttpResponse(status=400)
+
+    return HttpResponse(status=400)
 

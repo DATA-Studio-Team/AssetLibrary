@@ -25,3 +25,10 @@
     </div>
 </div>
 {% endfor %}
+{% if lazy_page %}
+<form>
+    {% csrf_token %}
+    <input type="hidden" name="lazy_page" value="{{ lazy_page }}">
+    <div hx-post="/assets" hx-trigger="revealed" hx-target="closest form" hx-swap="outerHTML"></div>
+<form>
+{% endif %}
