@@ -8,17 +8,20 @@ from django.db.models import Case, When, Value, IntegerField
 @login_required(login_url='/auth/', redirect_field_name=None)
 def library_view(request: HttpRequest):
 
+    assets = Asset.objects.none()
+
+    if request.user.has_perm("content.see_own"):
+        assets = Asset.objects.filter(author = request.user.pk)
+
+    if request.user.has_perm("content.see_others"):
+        assets = Asset.objects.all()
+
+    assets.order_by()
+
+    assets = assets.annotate(order=Case(When(favorites__pk=request.user.pk, then=Value(0)), default=Value(1), output_field=IntegerField(),)).order_by("order")
+
     if request.method == 'POST':
         if 'setAsFavourite' in request.POST:
-
-            assets = Asset.objects.none()
-
-            if request.user.has_perm("content.see_own"):
-                assets = Asset.objects.filter(author = request.user.pk)
-
-            if request.user.has_perm("content.see_others"):
-                assets = Asset.objects.all()
-
             asset = assets.filter(pk = request.POST['id'])
 
             if asset.exists():
@@ -37,10 +40,12 @@ def library_view(request: HttpRequest):
         
         return HttpResponse(status=404)
 
-    return render(request, "main/index.html", { 'filters': AssetTagCategory.get_dictionary(), 'form': SearchForm() })
+    return render(request, "main/index.html", { 'filters': AssetTagCategory.get_dictionary(), 'form': SearchForm(), 'assets': assets[:20] })
 
 @login_required(login_url='/auth/', redirect_field_name=None)
 def assets_view(request: HttpRequest):
+
+    print(request.POST)
 
     assets = Asset.objects.none()
 
@@ -49,18 +54,17 @@ def assets_view(request: HttpRequest):
 
     if request.user.has_perm("content.see_others"):
         assets = Asset.objects.all()
-    
+
     assets.order_by()
 
     assets = assets.annotate(order=Case(When(favorites__pk=request.user.pk, then=Value(0)), default=Value(1), output_field=IntegerField(),)).order_by("order")
 
-    if request.method == 'GET':
-        form = SearchForm(request.GET)
+    if request.method == 'POST':
+        form = SearchForm(request.POST)
 
         if form.is_valid():
 
-            return render(request, "main/index.html", { 'filters': AssetTagCategory.get_dictionary(), 'assets': assets.filter(name__icontains = form.cleaned_data['query']), 'form' : form })
+            return render(request, "main/asset_template.html", { 'filters': AssetTagCategory.get_dictionary(), 'assets': assets.filter(name__icontains = form.cleaned_data['query']), 'form' : form })
 
-
-    return render(request, "main/asset_template.html", { 'assets': assets })
+    return render(request, "main/asset_template.html", { 'assets': assets[:20] })
 
