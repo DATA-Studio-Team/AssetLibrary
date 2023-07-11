@@ -40,7 +40,7 @@ def library_view(request: HttpRequest):
         
         return HttpResponse(status=404)
 
-    return render(request, "main/index.html", { 'filters': AssetTagCategory.get_dictionary(), 'form': SearchForm(), 'assets': assets[:20] })
+    return render(request, "main/index.html", { 'filters': AssetTagCategory.get_dictionary(), 'assets': assets[:20] })
 
 @login_required(login_url='/auth/', redirect_field_name=None)
 def assets_view(request: HttpRequest):
@@ -60,11 +60,15 @@ def assets_view(request: HttpRequest):
     assets = assets.annotate(order=Case(When(favorites__pk=request.user.pk, then=Value(0)), default=Value(1), output_field=IntegerField(),)).order_by("order")
 
     if request.method == 'POST':
-        form = SearchForm(request.POST)
 
-        if form.is_valid():
+        if 'query' in request.POST:
+            assets = assets.filter(name__icontains = request.POST.get('query'))
 
-            return render(request, "main/asset_template.html", { 'filters': AssetTagCategory.get_dictionary(), 'assets': assets.filter(name__icontains = form.cleaned_data['query']), 'form' : form })
+        if 'tags[]' in request.POST:
+            for tag in request.POST.getlist('tags[]'):
+                assets = assets.filter(tags__in = tag)
+
+        return render(request, "main/asset_template.html", { 'filters': AssetTagCategory.get_dictionary(), 'assets': assets[:20] })
 
     return render(request, "main/asset_template.html", { 'assets': assets[:20] })
 

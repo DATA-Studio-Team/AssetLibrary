@@ -38,9 +38,9 @@
 
         <div class="content">
             <div class="adjusted-content mx-auto">
-                <form class="search-text-and-submit d-flex mt-5" method="get" >
+                <form class="search-text-and-submit d-flex mt-5" method="get" id="search">
                     {% csrf_token %}
-                    <input type="text" class="text-input m-2 w-75" name="query" placeholder="Search" value="{{ form.data.query }}" >
+                    <input type="text" class="text-input m-2 w-75" name="query" placeholder="Search">
                     <input type="submit" class="submit-search m-2 w-25" hx-post="/assets" hx-trigger="click" hx-target="#search-result" hx-swap="innerHTML" value="Search">
                 </form>
 
@@ -57,7 +57,7 @@
                                 <hr>
 
                                 {% for name, link, id in tags %}
-                                    <li><input type="checkbox" name="tags[]" value="{{id}}" id="{{link}}"> <label for="{{link}}">{{name}}</label></li>
+                                    <li><input type="checkbox" name="tags[]" form="search" value="{{id}}" id="{{link}}"> <label for="{{link}}">{{name}}</label></li>
                                 {% endfor %}
                             </ul>
                         {% endfor%}
