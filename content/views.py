@@ -27,6 +27,26 @@ def view_view(request: HttpRequest, asset_pk):
     return render(request, "content/view.html", { 'asset': asset })
 
 @login_required(login_url='/auth/', redirect_field_name=None)
+def delete_view(request: HttpRequest, asset_pk):
+
+    asset = Asset.objects.filter(pk=asset_pk)
+
+    if not asset.exists():
+        return redirect('library')
+    
+    asset = asset.first()
+    
+    if not request.user.has_perm("content.edit_own") and asset.author == request.user:
+        return redirect('library')
+    
+    if not request.user.has_perm("content.edit_others") and asset.author != request.user:
+        return redirect('library')
+    
+    asset.delete()
+
+    return redirect('library')
+
+@login_required(login_url='/auth/', redirect_field_name=None)
 @permission_required(perm="content.upload_assets", login_url='/auth/')
 def upload_view(request: HttpRequest):
     

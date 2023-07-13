@@ -57,11 +57,11 @@ class Asset(models.Model):
         verbose_name_plural = "Assets"
 
         permissions = [
-            ("see_own_assets", "Can see own added assets"),
-            ("see_others_assets", "Can see others added assets"),
-            ("edit_own_assets", "Can edit own assets"),
-            ("edit_others_assets", "Can edit others assets"),
-            ("upload_assets", "Can upload assets")
+            ("see_own", "Can see own added assets"),
+            ("see_others", "Can see others added assets"),
+            ("edit_own", "Can edit own assets"),
+            ("edit_others", "Can edit others assets"),
+            ("upload", "Can upload assets")
         ]
 
     def content_path(instance, filename):

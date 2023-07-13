@@ -35,8 +35,8 @@ def protected_serve(request, path, document_root=None, show_indexes=False):
     if request.user.has_perm("content.see_own"):
         if asset.author.pk == request.user.pk:
             return serve(request, path, document_root, show_indexes)
-        
-    if request.user.has_perm("content.see_other"):
+    
+    if request.user.has_perm("content.see_others"):
         if asset.author.pk != request.user.pk:
             return serve(request, path, document_root, show_indexes)
 

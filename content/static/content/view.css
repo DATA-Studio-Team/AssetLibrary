@@ -7,7 +7,7 @@
     background-color: #EE7700;
     color: #333333;
     padding: 15px 45px;
-    font-size: 24px;
+    font-size: 18px;
     font-weight: bold;
     border-radius: 10px;
     border: solid 2px #EE7700;
@@ -19,6 +19,34 @@
     background-color: transparent;
     color: #EE7700;
 }
+
+.delete-button {
+    background-color: #ee0000;
+    color: #333333;
+    padding: 10px 30px;
+    border-radius: 1000px;
+    border: solid 2px #ee0000;
+
+    transition: all ease-in-out 0.15s;
+}
+
+.delete-button:hover {
+    background-color: transparent;
+    color: #ee0000;
+}
+
+.modal-content {
+    background-color: #333333;
+}
+
+.modal-header {
+    border-color: #454545;
+}
+
+.modal-footer {
+    border-color: #454545;
+}
+
 
 .tag {
     border: solid 2px #70737C;
