@@ -74,7 +74,7 @@
                                 </label>
                             </div>
                         
-                            <model-viewer src="{{ asset.preview_mesh.url }}" camera-controls interaction-prompt="none" auto-rotate auto-rotate-delay="3000" rotation-per-second="25deg">  
+                            <model-viewer src="{% if asset.preview_mesh %}{{ asset.preview_mesh.url }}{% endif %}" camera-controls interaction-prompt="none" auto-rotate auto-rotate-delay="3000" rotation-per-second="25deg">  
                             </model-viewer>
                             <p class="card-author">Uploaded by {{ asset.author }}</p>
                             <p class="card-date">Last update {{ asset.last_update|date:"d.m.y H:i" }}</p>

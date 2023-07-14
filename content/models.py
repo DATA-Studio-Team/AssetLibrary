@@ -1,5 +1,10 @@
+from typing import Any, Dict, Tuple
 from django.db import models
 from django.contrib.auth.models import User
+
+import os
+
+from assetlib import settings
 
 from datetime import datetime
 
@@ -50,6 +55,13 @@ class Texture(models.Model):
     
     texture = models.FileField(upload_to=content_path)
 
+    def delete(self, *args, **kwargs):
+        self.texture.delete()
+
+        os.rmdir(os.path.abspath(os.path.join(settings.MEDIA_ROOT, 'textures', str(self.pk))))
+
+        return super().delete(args, kwargs)
+
 class Asset(models.Model):
 
     class Meta:
@@ -85,3 +97,15 @@ class Asset(models.Model):
     tags = models.ManyToManyField(AssetTag)
 
     favorites = models.ManyToManyField(User, related_name="users_favorites")
+
+    def delete(self, *args, **kwargs):
+        self.blender_mesh.delete()
+        self.fbx_mesh.delete()
+        self.preview_mesh.delete()
+
+        os.rmdir(os.path.abspath(os.path.join(settings.MEDIA_ROOT, 'meshes', str(self.pk))))
+
+        for texture in self.textures.all():
+            texture.delete()
+
+        return super().delete(args, kwargs)

@@ -35,7 +35,7 @@
             <div class="adjusted-content mx-auto">
 
                 <div class="d-flex flex-row mt-5 gap-3">
-                    <model-viewer src="{{ asset.preview_mesh.url }}" class="model-preview w-50" camera-controls interaction-prompt="none" auto-rotate auto-rotate-delay="3000" rotation-per-second="25deg"></model-viewer>
+                    <model-viewer src="{% if asset.preview_mesh %}{{ asset.preview_mesh.url }}{% endif %}" class="model-preview w-50" camera-controls interaction-prompt="none" auto-rotate auto-rotate-delay="3000" rotation-per-second="25deg"></model-viewer>
                     <div class="vertical-rule"></div>
                     <div class="flex-fill d-flex flex-column">
                         <h1 class="mx-5 my-3 text-center">{{ asset.name }}</h1>
@@ -52,17 +52,23 @@
                 </div>
 
                 <div class="d-flex flex-row mt-5 gap-3 justify-content-between">
+                    {% if asset.blender_mesh %}
                     <a href="{{ asset.blender_mesh.url }}" download class="download-button">
                         Download for Blender
                     </a>
+                    {% endif %}
 
+                    {% if asset.fbx_mesh %}
                     <a href="{{ asset.fbx_mesh.url }}" download class="download-button">
                         Download for Unreal Engine
                     </a>
+                    {% endif %}
 
+                    {% if asset.preview_mesh %}
                     <a href="{{ asset.preview_mesh.url }}" download class="download-button">
                         Download Preview
                     </a>
+                    {% endif %}
 
                     <a href="{% url 'download_textures' asset.pk %}" id="texturesDownload" download class="download-button">
                         Download Textures
