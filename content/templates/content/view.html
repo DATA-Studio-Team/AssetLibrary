@@ -69,7 +69,7 @@
                     </a>
                 </div>
 
-                {% if perms.content.edit_own and asset.author == user or perms.content.edit_others and asset.author != user %}
+                {% if perms.content.delete_own and asset.author == user or perms.content.delete_others and asset.author != user %}
                 <div class="d-flex flex-row-reverse mt-5 gap-3">
                     <button class="delete-button" data-bs-toggle="modal" data-bs-target="#deleteModal">
                         Delete asset
@@ -79,7 +79,7 @@
             </div>
         </div>
 
-        {% if perms.content.edit_own and asset.author == user or perms.content.edit_others and asset.author != user %}
+        {% if perms.content.delete_own and asset.author == user or perms.content.delete_others and asset.author != user %}
         <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">

@@ -61,6 +61,8 @@ class Asset(models.Model):
             ("see_others", "Can see others added assets"),
             ("edit_own", "Can edit own assets"),
             ("edit_others", "Can edit others assets"),
+            ("delete_own", "Can delete own assets"),
+            ("delete_others", "Can delete others assets"),
             ("upload", "Can upload assets")
         ]
 

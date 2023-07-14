@@ -24,6 +24,7 @@
     background-color: #ee0000;
     color: #333333;
     padding: 10px 30px;
+    font-weight: bold;
     border-radius: 1000px;
     border: solid 2px #ee0000;
 
@@ -32,7 +33,7 @@
 
 .delete-button:hover {
     background-color: transparent;
-    color: #ee0000;
+    color: #cc1414;
 }
 
 .modal-content {

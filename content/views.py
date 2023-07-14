@@ -36,10 +36,10 @@ def delete_view(request: HttpRequest, asset_pk):
     
     asset = asset.first()
     
-    if not request.user.has_perm("content.edit_own") and asset.author == request.user:
+    if not request.user.has_perm("content.delete_own") and asset.author == request.user:
         return redirect('library')
     
-    if not request.user.has_perm("content.edit_others") and asset.author != request.user:
+    if not request.user.has_perm("content.delete_others") and asset.author != request.user:
         return redirect('library')
     
     asset.delete()
