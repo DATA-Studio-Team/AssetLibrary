@@ -14,7 +14,10 @@
         <link href="{% static 'main/common.css' %}" rel="stylesheet">
         <link href="{% static 'content/upload.css' %}" rel="stylesheet">
 
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
         <script src="{% static 'content/upload.js' %}"></script>
+        <script src="{% static 'content/edit.js' %}"></script>
 
         <title>Asset Library</title>
 
@@ -25,8 +28,10 @@
                 <h3 class="my-3 mx-5">Asset Library</h3>
 
                 <div class="navigation fs-6 d-flex align-items-center">
-                    <a href="{% url 'library' %}">LIBRARY</a>
-                    <a href="{% url 'upload' %}" class="active">UPLOAD</a>
+                    <a href="{% url 'library' %}" class="active">LIBRARY</a>
+                    {% if perms.content.upload_assets %}
+                    <a href="{% url 'upload' %}">UPLOAD</a>
+                    {% endif %}
                     <a href="{% url 'logout' %}">LOG OUT</a>
                 </div>
             </div>
@@ -37,18 +42,18 @@
                 {% csrf_token %}
                 <div class="w-50">
                     <label class="form-label" for="name">Model name:</label>
-                    <input class="form-control" id="name" name="card_name" minlength="2" type="text" placeholder="Enter model name.." required>
+                    <input class="form-control" id="name" name="card_name" minlength="2" type="text" placeholder="Enter model name.." required value="{{ asset.name }}">
                 </div>
                 
                 <div>
                     <label class="form-label" for="description">Model description:</label>
-                    <textarea class="form-control" id="description" name="card_description" type="text" placeholder="Enter model description.." required></textarea>
+                    <textarea class="form-control" id="description" name="card_description" type="text" placeholder="Enter model description.." required>{{ asset.description }}</textarea>
                 </div>
 
                 <div class="d-flex justify-content-evenly gap-5">
                     <div class="d-flex flex-fill flex-column">
                         <label for="blender_mesh" class="form-label">Blender model:</label>
-                        <input class="form-control flex-fill" type="file" name="blender_mesh" id="blender_mesh" accept=".blend" required>
+                        <input class="form-control flex-fill" type="file" name="blender_mesh" id="blender_mesh" accept=".blend">
                     </div>
 
                     <div class="d-flex flex-fill flex-column">
@@ -72,12 +77,26 @@
                 </div>
 
                 <div>
-                    <label for="textures" class="form-label">Textures:</label>
+                    <label for="textures" class="form-label">New textures:</label>
 
                     <input class="form-control" type="file" name="textures" accept=".png" onchange="updatePreviewTexture(this)" multiple/>
                     
                     <div class="div-field mt-3 d-flex flex-row flex-wrap gap-2 justify-content-evenly p-3" id="texturesPreview">
 
+                    </div>
+                </div>
+
+                <div>
+                    <label for="textures" class="form-label">Textures:</label>
+
+                    <div class="div-field d-flex flex-row flex-wrap gap-2 justify-content-evenly p-3">
+                        {% for texture in asset.textures.all %}
+                        <div class="d-flex flex-column justify-content-center align-items-center w-20 gap-2 texture-viewer">
+                            <img class="w-100" src="{{ texture.texture.url }}">
+                            <h6 class="fs-6">{{ texture.filename }}</h6>
+                            <button class="delete-button" onclick="event.preventDefault(); deleteTexture(this, {{ texture.pk }});">Delete</button>
+                        </div>
+                        {% endfor%}
                     </div>
                 </div>
 
@@ -94,7 +113,7 @@
                                 <hr>
 
                                 {% for tag in tags %}
-                                    <li><input type="checkbox" name="tags[]" value="{{tag.pk}}" id="{{tag.get_named_list}}"> <label for="{{tag.get_named_list}}">{{tag.name}}</label></li>
+                                    <li><input type="checkbox" name="tags[]" value="{{tag.pk}}" id="{{tag.get_named_list}}" {% if tag in asset.tags.all %} checked {% endif %}> <label for="{{tag.get_named_list}}">{{tag.name}}</label></li>
                                 {% endfor %}
                             </ul>
                         {% endfor%}
@@ -102,7 +121,7 @@
                 </div>
 
                 <div class="d-flex flex-row-reverse">
-                    <input class="form-submit" type="submit" value="Upload">
+                    <input class="form-submit" type="submit" value="Save">
                 </div>
             </form>
         </div>

@@ -56,8 +56,8 @@
 
                                 <hr>
 
-                                {% for name, link, id in tags %}
-                                    <li><input type="checkbox" name="tags[]" form="search" value="{{id}}" id="{{link}}"> <label for="{{link}}">{{name}}</label></li>
+                                {% for tag in tags %}
+                                    <li><input type="checkbox" name="tags[]" value="{{tag.pk}}" id="{{tag.get_named_list}}"> <label for="{{tag.get_named_list}}">{{tag.name}}</label></li>
                                 {% endfor %}
                             </ul>
                         {% endfor%}

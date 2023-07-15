@@ -36,6 +36,22 @@
     color: #cc1414;
 }
 
+.edit-button {
+    background-color: #EE7700;
+    color: #333333;
+    padding: 10px 30px;
+    font-weight: bold;
+    border-radius: 1000px;
+    border: solid 2px #EE7700;
+
+    transition: all ease-in-out 0.15s;
+}
+
+.edit-button:hover {
+    background-color: transparent;
+    color: #EE7700;
+}
+
 .modal-content {
     background-color: #333333;
 }

@@ -91,6 +91,86 @@ def upload_view(request: HttpRequest):
     return render(request, "content/upload.html", { 'form': UploadForm(), 'filters': AssetTagCategory.get_dictionary() })
 
 @login_required(login_url='/auth/', redirect_field_name=None)
+def edit_view(request: HttpRequest, asset_pk):
+
+    asset = Asset.objects.filter(pk=asset_pk)
+
+    if not asset.exists():
+        return Http404()
+    
+    asset = asset.first()
+
+    if not request.user.has_perm("content.edit_own") and asset.author == request.user:
+        return Http404()
+    
+    if not request.user.has_perm("content.edit_others") and asset.author != request.user:
+        return Http404()
+    
+    if request.method == 'POST':
+
+        if 'deleteTexture' in request.POST:
+
+            texture = Texture.objects.filter(pk=request.POST['texture_id'])
+
+            if not texture.exists():
+                return Http404()
+
+            texture = texture.first()
+
+            asset.textures.remove(texture)
+
+            texture.delete()
+
+            return HttpResponse(status=200)
+        
+        else:
+            form = UploadForm(request.POST, request.FILES)
+
+            if form.is_valid():
+
+                asset.last_update = datetime.now()
+
+                asset.name = form.cleaned_data['card_name']
+                asset.description = form.cleaned_data['card_description']
+
+                asset.save()
+
+                if form.cleaned_data['blender_mesh'] is not None:
+                    asset.blender_mesh = form.cleaned_data['blender_mesh']
+
+                if form.cleaned_data['fbx_mesh'] is not None:
+                    asset.fbx_mesh = form.cleaned_data['fbx_mesh']
+
+                if form.cleaned_data['preview_mesh'] is not None:
+                    asset.preview_mesh = form.cleaned_data['preview_mesh']
+
+                asset.save()
+
+                for textureFile in request.FILES.getlist('textures'):
+                    newTexture = Texture()
+                    newTexture.save()
+
+                    newTexture.texture = textureFile
+
+                    newTexture.save()
+
+                    asset.textures.add(newTexture)
+
+                asset.save()
+
+                asset.tags.clear()
+
+                for tagId in request.POST.getlist('tags[]'):
+                    tag = AssetTag.objects.get(pk=tagId)
+
+                    if tag is not None:
+                        asset.tags.add(tag)
+
+                asset.save()
+
+    return render(request, "content/edit.html", { 'asset': asset, 'filters': AssetTagCategory.get_dictionary() })
+
+@login_required(login_url='/auth/', redirect_field_name=None)
 def download_asset_zip(request: HttpRequest, asset_pk):
 
     asset = Asset.objects.filter(pk=asset_pk)

@@ -25,7 +25,9 @@
 
                 <div class="navigation fs-6 d-flex align-items-center">
                     <a href="{% url 'library' %}" class="active">LIBRARY</a>
+                    {% if perms.content.upload_assets %}
                     <a href="{% url 'upload' %}">UPLOAD</a>
+                    {% endif %}
                     <a href="{% url 'logout' %}">LOG OUT</a>
                 </div>
             </div>
@@ -41,7 +43,7 @@
                         <h1 class="mx-5 my-3 text-center">{{ asset.name }}</h1>
                         <p class="mx-3 my-1">{{ asset.description }}</p>
 
-                        <div class="mx-3 mt-auto mb-0 d-flex gap-2">
+                        <div class="mx-3 mt-auto mb-0 d-flex gap-2 flex-wrap">
                             {% for tag in asset.tags.all %}
                             <div class="tag">
                                 {{ tag.name }}
@@ -75,13 +77,20 @@
                     </a>
                 </div>
 
-                {% if perms.content.delete_own and asset.author == user or perms.content.delete_others and asset.author != user %}
+                
                 <div class="d-flex flex-row-reverse mt-5 gap-3">
+                    {% if perms.content.delete_own and asset.author == user or perms.content.delete_others and asset.author != user %}
                     <button class="delete-button" data-bs-toggle="modal" data-bs-target="#deleteModal">
                         Delete asset
                     </button>
+                    {% endif %}
+
+                    {% if perms.content.edit_own and asset.author == user or perms.content.edit_others and asset.author != user %}
+                    <a class="edit-button" href="{% url 'asset_edit' asset.pk %}">
+                        Edit asset
+                    </a>
+                    {% endif %}
                 </div>
-                {% endif %}
             </div>
         </div>
 

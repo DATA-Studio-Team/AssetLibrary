@@ -22,7 +22,7 @@ class AssetTagCategory(models.Model):
         filters = dict()
 
         for categories in AssetTagCategory.objects.all():
-            filters[categories.name] = list(map(lambda el: (el.name, el.get_named_list(), el.pk), AssetTag.objects.filter(category_id=categories)))
+            filters[categories.name] = list(AssetTag.objects.filter(category_id=categories))
 
         return filters
 
@@ -61,6 +61,9 @@ class Texture(models.Model):
         os.rmdir(os.path.abspath(os.path.join(settings.MEDIA_ROOT, 'textures', str(self.pk))))
 
         return super().delete(args, kwargs)
+    
+    def filename(self):
+        return os.path.basename(self.texture.name)
 
 class Asset(models.Model):
 
