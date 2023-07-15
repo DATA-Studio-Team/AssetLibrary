@@ -11,6 +11,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Lexend&display=swap" rel="stylesheet">
 
         {% load static %}
+        {% load tz %}
         <link href="{% static 'main/common.css' %}" rel="stylesheet">
         <link href="{% static 'main/index.css' %}" rel="stylesheet">
 
@@ -77,7 +78,7 @@
                             <model-viewer src="{% if asset.preview_mesh %}{{ asset.preview_mesh.url }}{% endif %}" camera-controls interaction-prompt="none" auto-rotate auto-rotate-delay="3000" rotation-per-second="25deg">  
                             </model-viewer>
                             <p class="card-author">Uploaded by {{ asset.author }}</p>
-                            <p class="card-date">Last update {{ asset.last_update|date:"d.m.y H:i" }}</p>
+                            <p class="card-date">Last update {{ asset.last_update|date:"d.m.y H:i" }} UTC</p>
                             <p class="card-model-name">{{ asset.name }}</p>
 
                             <div class="card-model-tags d-flex flex-nowrap text-nowrap">

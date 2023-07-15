@@ -3,6 +3,7 @@ from django.http import HttpRequest, HttpResponse, Http404
 from django.contrib.auth.decorators import login_required, permission_required
 from .models import *
 from .forms import *
+from django.utils import timezone
 
 import os
 import zipfile
@@ -128,12 +129,10 @@ def edit_view(request: HttpRequest, asset_pk):
 
             if form.is_valid():
 
-                asset.last_update = datetime.now()
+                asset.last_update = timezone.now()
 
                 asset.name = form.cleaned_data['card_name']
                 asset.description = form.cleaned_data['card_description']
-
-                asset.save()
 
                 if form.cleaned_data['blender_mesh'] is not None:
                     asset.blender_mesh = form.cleaned_data['blender_mesh']
@@ -144,8 +143,6 @@ def edit_view(request: HttpRequest, asset_pk):
                 if form.cleaned_data['preview_mesh'] is not None:
                     asset.preview_mesh = form.cleaned_data['preview_mesh']
 
-                asset.save()
-
                 for textureFile in request.FILES.getlist('textures'):
                     newTexture = Texture()
                     newTexture.save()
@@ -155,8 +152,6 @@ def edit_view(request: HttpRequest, asset_pk):
                     newTexture.save()
 
                     asset.textures.add(newTexture)
-
-                asset.save()
 
                 asset.tags.clear()
 
