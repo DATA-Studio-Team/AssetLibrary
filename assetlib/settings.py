@@ -41,7 +41,13 @@ INSTALLED_APPS = [
     'custom_auth',
     'content',
     
+    'dbbackup',
 ]
+
+DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
+DBBACKUP_STORAGE_OPTIONS = {
+    'location': 'backup/'
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

@@ -77,8 +77,8 @@
                         
                             <model-viewer src="{% if asset.preview_mesh %}{{ asset.preview_mesh.url }}{% endif %}" camera-controls interaction-prompt="none" auto-rotate auto-rotate-delay="3000" rotation-per-second="25deg">  
                             </model-viewer>
-                            <p class="card-author">Uploaded by {{ asset.author }}</p>
-                            <p class="card-date">Last update {{ asset.last_update|date:"d.m.y H:i" }} UTC</p>
+                            <p class="card-author">Uploaded by <b>{{ asset.author }}</b></p>
+                            <p class="card-date">Last update <b>{{ asset.last_update|date:"d.m.y H:i" }} UTC</b></p>
                             <p class="card-model-name">{{ asset.name }}</p>
 
                             <div class="card-model-tags d-flex flex-nowrap text-nowrap">
