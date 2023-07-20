@@ -48,7 +48,7 @@ def delete_view(request: HttpRequest, asset_pk):
     return redirect('library')
 
 @login_required(login_url='/auth/', redirect_field_name=None)
-@permission_required(perm="content.upload_assets", login_url='/auth/')
+@permission_required(perm="content.upload", login_url='/auth/')
 def upload_view(request: HttpRequest):
     
     if request.method == 'POST':
