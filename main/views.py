@@ -5,14 +5,10 @@ from .forms import *
 from content.models import *
 from django.db.models import Case, When, Value, IntegerField
 
-import logging
-
 ASSETS_PER_PAGE = 20
 
 @login_required(login_url='/auth/', redirect_field_name=None)
 def library_view(request: HttpRequest):
-
-    logging.info("test")
 
     assets = Asset.objects.none()
 
@@ -68,6 +64,8 @@ def assets_view(request: HttpRequest):
     assets.order_by()
 
     assets = assets.annotate(order=Case(When(favorites__pk=request.user.pk, then=Value(0)), default=Value(1), output_field=IntegerField(),)).order_by("order")
+
+    print(request.POST)
 
     if request.method == 'POST':
 
