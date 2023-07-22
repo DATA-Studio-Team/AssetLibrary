@@ -17,10 +17,8 @@ def library_view(request: HttpRequest):
 
     if request.user.has_perm("content.see_others"):
         assets = Asset.objects.all()
-
-    assets.order_by()
-
-    assets = assets.annotate(order=Case(When(favorites__pk=request.user.pk, then=Value(0)), default=Value(1), output_field=IntegerField(),)).order_by("order")
+        
+    assets = assets.annotate(order=Case(When(favorites__pk=request.user.pk, then=Value(0)), default=Value(1), output_field=IntegerField(),)).order_by("order", "-last_update") 
 
     if request.method == 'POST':
         if 'setAsFavourite' in request.POST:
@@ -61,9 +59,7 @@ def assets_view(request: HttpRequest):
     if request.user.has_perm("content.see_others"):
         assets = Asset.objects.all()
 
-    assets.order_by()
-
-    assets = assets.annotate(order=Case(When(favorites__pk=request.user.pk, then=Value(0)), default=Value(1), output_field=IntegerField(),)).order_by("order")
+    assets = assets.annotate(order=Case(When(favorites__pk=request.user.pk, then=Value(0)), default=Value(1), output_field=IntegerField(),)).order_by("order", "-last_update") 
 
     print(request.POST)
 
