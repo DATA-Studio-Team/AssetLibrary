@@ -1,6 +1,10 @@
 .model-preview {
-    height: 60vh;
+    height: 75vh;
     border-radius: 25px;
+}
+
+.asset-description {
+    white-space: pre-wrap;
 }
 
 .download-button {
