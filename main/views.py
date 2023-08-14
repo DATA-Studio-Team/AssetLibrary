@@ -61,16 +61,16 @@ def assets_view(request: HttpRequest):
 
     assets = assets.annotate(order=Case(When(favorites__pk=request.user.pk, then=Value(0)), default=Value(1), output_field=IntegerField(),)).order_by("order", "-last_update") 
 
-    print(request.POST)
-
     if request.method == 'POST':
 
         if 'query' in request.POST:
             assets = assets.filter(name__icontains = request.POST.get('query'))
             
+            print(assets)
+
             if 'tags[]' in request.POST:
                 for tag in request.POST.getlist('tags[]'):
-                    assets = assets.filter(tags__in = tag)
+                    assets = assets.filter(tags__in = [tag])
 
             context = { 'assets': assets[:ASSETS_PER_PAGE] }
 
