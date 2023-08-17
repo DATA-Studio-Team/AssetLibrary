@@ -15,6 +15,9 @@
         <link href="{% static 'main/common.css' %}" rel="stylesheet">
         <link href="{% static 'content/view.css' %}" rel="stylesheet">
 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script src="{% static 'content/view.js' %}"></script>
+
         <title>Asset Library</title>
 
     </head>
@@ -106,12 +109,12 @@
                 <h2 class="my-4 text-center">Relative assets</h2>
 
                 <div class="d-flex flex-nowrap text-nowrap gap-5 align-items-start my-4 relatives-list p-4">
-                    {% for relative_asset in relatives %}
+                    {% for id, relative_asset in relatives %}
                         <div class="search-result-card">
 
                             <div class="remove-relative-container">
                                 <label class="remove-relative-label">
-                                    <input type="button" class="remove-relative-input" onclick="changeFavorite(this, {{ asset.pk }})">
+                                    <input type="button" class="remove-relative-input" onclick="removeRelation(this, {{ id }})">
                                 </label>
                             </div>
                         

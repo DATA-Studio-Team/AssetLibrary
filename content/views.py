@@ -26,7 +26,25 @@ def view_view(request: HttpRequest, asset_pk):
     if not request.user.has_perm("content.see_others") and asset.author != request.user:
         return redirect('library')
     
-    return render(request, "content/view.html", { 'asset': asset, 'relatives': list(map(lambda el: el.second, asset.first_asset.all())) + list(map(lambda el: el.first, asset.second_asset.all())) })
+    if request.method == "POST":
+        if 'removeRelation' in request.POST:
+
+            if not request.user.has_perm("content.edit_own") and asset.author == request.user:
+                return HttpResponse(status=400)
+    
+            if not request.user.has_perm("content.edit_others") and asset.author != request.user:
+                return HttpResponse(status=400)
+
+            relation = AssetRelation.objects.filter(pk=request.POST['removeRelation'])
+
+            if not relation.exists():
+                return HttpResponse(status=400)
+                
+            relation.first().delete()
+
+            return HttpResponse(status=200)
+
+    return render(request, "content/view.html", { 'asset': asset, 'relatives': list(map(lambda el: (el.pk, el.second), asset.first_asset.all())) + list(map(lambda el: (el.pk, el.first), asset.second_asset.all())) })
 
 @login_required(login_url='/auth/', redirect_field_name=None)
 def add_relation_action(request: HttpRequest, asset_pk):
@@ -34,25 +52,31 @@ def add_relation_action(request: HttpRequest, asset_pk):
     asset = Asset.objects.filter(pk=asset_pk)
 
     if not asset.exists():
-        return Http404()
+        return redirect('asset_view', asset_pk)
     
     asset = asset.first()
 
     if not request.user.has_perm("content.edit_own") and asset.author == request.user:
-        return Http404()
+        return redirect('asset_view', asset_pk)
     
     if not request.user.has_perm("content.edit_others") and asset.author != request.user:
-        return Http404()
+        return redirect('asset_view', asset_pk)
     
     if not 'asset_id' in request.POST:
-        return Http404()
+        return redirect('asset_view', asset_pk)
 
     second_asset = Asset.objects.filter(pk=request.POST['asset_id'])
 
     if not second_asset.exists():
-        return Http404()
+        return redirect('asset_view', asset_pk)
     
     second_asset = second_asset.first()
+
+    if asset == second_asset:
+        return redirect('asset_view', asset_pk)
+    
+    if AssetRelation.objects.filter((Q(first = asset) & Q(second = second_asset)) | (Q(first = second_asset) & Q(second = asset))).exists():
+        return redirect('asset_view', asset_pk)
 
     asset_relation = AssetRelation(first=asset, second=second_asset)
     asset_relation.save()
