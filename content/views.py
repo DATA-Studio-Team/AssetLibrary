@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from .models import *
 from .forms import *
 from django.utils import timezone
+from django.db.models import Q
 
 import os
 import zipfile
@@ -24,11 +25,42 @@ def view_view(request: HttpRequest, asset_pk):
     
     if not request.user.has_perm("content.see_others") and asset.author != request.user:
         return redirect('library')
-
-    return render(request, "content/view.html", { 'asset': asset })
+    
+    return render(request, "content/view.html", { 'asset': asset, 'relatives': list(map(lambda el: el.second, asset.first_asset.all())) + list(map(lambda el: el.first, asset.second_asset.all())) })
 
 @login_required(login_url='/auth/', redirect_field_name=None)
-def delete_view(request: HttpRequest, asset_pk):
+def add_relation_action(request: HttpRequest, asset_pk):
+
+    asset = Asset.objects.filter(pk=asset_pk)
+
+    if not asset.exists():
+        return Http404()
+    
+    asset = asset.first()
+
+    if not request.user.has_perm("content.edit_own") and asset.author == request.user:
+        return Http404()
+    
+    if not request.user.has_perm("content.edit_others") and asset.author != request.user:
+        return Http404()
+    
+    if not 'asset_id' in request.POST:
+        return Http404()
+
+    second_asset = Asset.objects.filter(pk=request.POST['asset_id'])
+
+    if not second_asset.exists():
+        return Http404()
+    
+    second_asset = second_asset.first()
+
+    asset_relation = AssetRelation(first=asset, second=second_asset)
+    asset_relation.save()
+
+    return redirect('asset_view', asset_pk)
+
+@login_required(login_url='/auth/', redirect_field_name=None)
+def delete_action(request: HttpRequest, asset_pk):
 
     asset = Asset.objects.filter(pk=asset_pk)
 

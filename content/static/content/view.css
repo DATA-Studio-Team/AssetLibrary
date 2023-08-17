@@ -81,3 +81,58 @@
 .tag:hover {
     color: #BBBBBB;
 }
+
+.relatives-list {
+    overflow-x: scroll;
+}
+
+.relatives-list::-webkit-scrollbar { 
+    display: none;
+}
+
+.remove-relative-container 
+{
+    position: relative;
+    width: 0;
+    height: 0;
+
+    margin-left: auto;
+    margin-right: 0;
+
+    right: 6px;
+    top: -37px;
+}
+
+.remove-relative-label 
+{
+    position: absolute;
+
+    z-index: 2;
+
+    border-radius: 100%;
+
+    width: 45px;
+    height: 45px;
+    
+    background-color: #333333;
+    border: solid 2px #454545;
+    
+    background-image: url("/static/main/util/broken_link.svg");
+    background-repeat: no-repeat;
+    background-size: 60%;
+    background-position: center;
+
+    transition: all 0.15s ease-in-out;
+}
+
+.remove-relative-label:hover 
+{
+    background-image: url("/static/main/util/broken_link_active.svg");
+    background-color: #454545;
+    border-color: #ee0000;
+}
+
+.remove-relative-input 
+{
+    display: none;
+}

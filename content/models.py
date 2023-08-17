@@ -112,3 +112,8 @@ class Asset(models.Model):
             texture.delete()
 
         return super().delete(args, kwargs)
+
+class AssetRelation(models.Model):
+
+    first = models.ForeignKey(Asset, on_delete=models.CASCADE, related_name="first_asset")
+    second = models.ForeignKey(Asset, on_delete=models.CASCADE, related_name="second_asset")

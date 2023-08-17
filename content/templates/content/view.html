@@ -36,7 +36,7 @@
         <div class="content">
             <div class="adjusted-content mx-auto">
 
-                <div class="d-flex flex-column mt-5 gap-3">
+                <div class="d-flex flex-column my-4 gap-3">
                     <model-viewer src="{% if asset.preview_mesh %}{{ asset.preview_mesh.url }}{% endif %}" class="model-preview w-100" camera-controls interaction-prompt="none" auto-rotate auto-rotate-delay="3000" rotation-per-second="25deg"></model-viewer>
                     <div class="vertical-rule"></div>
                     <div class="flex-fill d-flex flex-column">
@@ -53,7 +53,7 @@
                     </div>
                 </div>
 
-                <div class="d-flex flex-row mt-5 gap-3 justify-content-between">
+                <div class="d-flex flex-row my-4 gap-3 justify-content-between">
                     {% if asset.blender_mesh %}
                     <a href="{{ asset.blender_mesh.url }}" download class="download-button">
                         Download for Blender
@@ -78,7 +78,7 @@
                 </div>
 
                 
-                <div class="d-flex flex-row-reverse mt-5 gap-3">
+                <div class="d-flex flex-row-reverse my-4 gap-3">
                     {% if perms.content.delete_own and asset.author == user or perms.content.delete_others and asset.author != user %}
                     <button class="delete-button" data-bs-toggle="modal" data-bs-target="#deleteModal">
                         Delete asset
@@ -89,8 +89,52 @@
                     <a class="edit-button" href="{% url 'asset_edit' asset.pk %}">
                         Edit asset
                     </a>
+
+                    <button class="edit-button" data-bs-toggle="modal" data-bs-target="#addRelationModal"">
+                        Add relation
+                    </button>
+
+                    <button class="edit-button" onclick="navigator.clipboard.writeText('{{ asset.pk }}'); this.innerHTML = 'Copied'">
+                        Copy ID
+                    </button>
                     {% endif %}
                 </div>
+
+                {% if relatives %}
+                <div class="vertical-rule"></div>
+            
+                <h2 class="my-4 text-center">Relative assets</h2>
+
+                <div class="d-flex flex-nowrap text-nowrap gap-5 align-items-start my-4 relatives-list p-4">
+                    {% for relative_asset in relatives %}
+                        <div class="search-result-card">
+
+                            <div class="remove-relative-container">
+                                <label class="remove-relative-label">
+                                    <input type="button" class="remove-relative-input" onclick="changeFavorite(this, {{ asset.pk }})">
+                                </label>
+                            </div>
+                        
+                            <model-viewer src="{{ relative_asset.preview_mesh.url }}" camera-controls interaction-prompt="none" auto-rotate auto-rotate-delay="3000" rotation-per-second="25deg">  
+                            </model-viewer>
+                            <p class="card-author">Uploaded by <b>{{ relative_asset.author }}</b></p>
+                            <p class="card-date">Last update <b>{{ relative_asset.last_update|date:"d.m.y H:i" }} UTC</b></p>
+                            <p class="card-model-name">{{ relative_asset.name }}</p>
+
+                            <div class="card-model-tags d-flex flex-nowrap text-nowrap">
+                                {% for tag in relative_asset.tags.all %}
+                                    <div>{{ tag.name }}</div>
+                                {% endfor %}
+                            </div>
+                        
+                            <div class="card-links">
+                                <a href="{% url 'asset_view' relative_asset.pk %}" class="card-link"></a>
+                                <a href="{% url 'download_asset' relative_asset.pk %}" download class="card-download">Download</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
             </div>
         </div>
 
@@ -103,6 +147,28 @@
                     </div>
                     <div class="modal-footer">
                         <a type="button" href="{% url 'asset_delete' asset.pk %}" class="delete-button">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if perms.content.edit_own and asset.author == user or perms.content.edit_others and asset.author != user %}
+        <div class="modal fade" id="addRelationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add relation to other asset</h5>
+                    </div>
+                    <div class="modal-body">
+                        <form id="add_relation_form" method="post" action="add-relation">
+                            {% csrf_token %}
+                            <label class="form-label" for="id">Other asset ID:</label>
+                            <input class="form-control" id="id" name="asset_id" type="text" placeholder="Enter other asset ID.." required>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <input form="add_relation_form" type="submit" class="edit-button" value="Add">
                     </div>
                 </div>
             </div>

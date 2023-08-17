@@ -1,4 +1,5 @@
 from django import forms
+from . import models
 
 class UploadForm(forms.Form):
     card_name = forms.CharField(initial="")
