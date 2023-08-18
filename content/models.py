@@ -106,7 +106,9 @@ class Asset(models.Model):
         self.fbx_mesh.delete()
         self.preview_mesh.delete()
 
-        os.rmdir(os.path.abspath(os.path.join(settings.MEDIA_ROOT, 'meshes', str(self.pk))))
+        dir_path = os.path.abspath(os.path.join(settings.MEDIA_ROOT, 'meshes', str(self.pk)))
+        if os.path.exists(dir_path):
+            os.rmdir(dir_path)
 
         for texture in self.textures.all():
             texture.delete()
